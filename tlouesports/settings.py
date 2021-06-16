@@ -27,7 +27,7 @@ SECRET_KEY = 'f1kf$_e_kpob-o%g&u&+^3^hkuni$3um(#-_^@lm35+ny*^1gf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'tloue-sports.herokuapp.com']
+ALLOWED_HOSTS = ['pythonclusters-34371-0.cloudclusters.net']
 # ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['pythonclusters-33430-0.cloudclusters.net']
 
