@@ -1,0 +1,807 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block title %} {{ user }} - Profile {% endblock %}
+
+{% block body %}
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.profilePage {
+    margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #13212e;
+  padding: 4rem 2rem;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+.profile {
+  width: 25%;
+  overflow: hidden;
+}
+.profileStats {
+  width: 70%;
+  padding: 1rem;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
+}
+.profile div {
+  background: #101c2a;
+  text-align: center;
+}
+.profileImg img {
+  
+  height: 200px;
+}
+
+.profileTeam a {
+  font-size: 2.2rem;
+}
+.profileTeam span {
+  font-size: 1.4rem;
+}
+
+.profileContent {
+  text-align: center;
+  padding: 0.5rem 0 1.5rem;
+}
+.profileContent h3 {
+  color: #dd3333;
+}
+.profileContent h4 {
+  font-weight: normal;
+}
+.profileBtns {
+  display: flex;
+  justify-content: space-between;
+  background-color: #13212e !important;
+}
+.profileBtn {
+  width: 49%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profileBtn img {
+  width: 20px;
+  margin-right: 10px;
+}
+.profileDate {
+  display: flex;
+  padding: 1rem;
+}
+.profileDate img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.profileDate span {
+  font-size: 1.2rem;
+}
+.profileDate span:nth-child(2) {
+  color: #aaa;
+  width: 80px;
+}
+
+.profileStats {
+  display: flex;
+  flex-direction: column;
+  background: #101c2a;
+  overflow: hidden;
+}
+.profileStat {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 1rem;
+}
+.profileStat h3 {
+  color: #dd3333;
+}
+.stats {
+  display: flex;
+  flex: wrap;
+  justify-content: center;
+}
+.stats div {
+  display: flex;
+  flex-direction: column;
+  min-width: 50px;
+  text-transform: uppercase;
+  text-align: center;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.profileBtns .profileBtn {
+  cursor: pointer;
+}
+
+.stats div:not(:nth-child(1), :nth-last-child(1)) {
+  border-right: 2px solid rgba(0, 0, 0, 0.2);
+}
+.stats div span:nth-child(1) {
+  font-size: 4.3rem;
+}
+.stats div span:nth-child(2) {
+  font-size: 1.2rem;
+}
+.circleProgress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circleProgress span {
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 5px solid #404347;
+  position: relative;
+}
+.circleProgress span::before {
+  content: url("{% static 'images/star.svg' %}");
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 14%;
+  left: 18%;
+}
+.recentResults {
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+.recentResults h3 {
+  padding-top: 1rem;
+  color: #dd3333;
+}
+.recentResults ul li {
+  display: flex;
+  column-gap: 0.5rem;
+  padding: 1rem;
+  justify-content: space-between;
+  /* font-size: 0.8rem; */
+}
+.recentResults ul li:nth-child(even) {
+  background: #13212e;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.recentResults li > span:nth-child(1) img {
+  margin-right: 10px;
+}
+
+.recentResults li > span:nth-child(2) span:nth-child(2) {
+  padding: 0 5px;
+}
+.recentResults li > span:nth-child(3) img {
+  margin-left: 10px;
+}
+.recentWinner {
+  color: #dd3333;
+}
+.recentResults ul li img {
+  width: 50px;
+}
+.recentResults li span {
+  display: flex;
+  align-items: center;
+}
+
+.teamProfile {
+  padding: 1rem 0;
+  width: 65%;
+}
+.teamProfile h3 {
+  color: #dd3333;
+}
+.profileTeams {
+  display: flex;
+  margin-top: 1rem;
+  column-gap: 0.7rem;
+  overflow: auto;
+  padding-bottom: 1rem;
+}
+
+.profileTeam {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+.profileTeam img {
+  width: 150px;
+  height: 120px;
+}
+.profileTeam span:nth-child(2) {
+  margin: 0.6rem 0 0.1rem;
+}
+.profileTeam span:nth-child(3) {
+  color: #aaa;
+}
+.teamgame {
+  display: flex;
+}
+
+.gamesProfile {
+  margin-top: 1rem;
+  padding-left: 2rem;
+  border-left: 2px solid rgba(0, 0, 0, 0.2);
+}
+.gamesProfile h3 {
+  color: #dd3333;
+}
+.gamesList {
+  display: flex;
+  column-gap: 0.4rem;
+  margin-top: 1rem;
+}
+.gameItem {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+.gameItem span:nth-child(2) {
+  margin: 0.6rem 0 0.1rem;
+}
+.gameItem span:nth-child(3) {
+  color: #aaa;
+}
+.gameItem img {
+  width: 100px;
+
+}
+
+.input-container {
+        text-align: center;
+        position: relative;
+    }
+
+    input[type=text],
+    .input-container select,
+        input[type=email],
+        input[type=file],
+        input[type=password] {
+        width: 260px;
+        height: 50px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        padding-left: 45px;
+        background: #50597b;
+        color: #fff;
+        border: solid 1px #1f253d;
+        border-radius: 5px;
+    }
+
+
+
+    input[type=text]::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #fff;
+    }
+
+    input[type=text]:-moz-input-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #fff;
+    }
+
+    input[type=text]::-moz-input-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #fff;
+    }
+
+    input[type=text]:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #fff;
+    }
+
+    input[type=text]:focus {
+        outline: none;
+        /* removes the default orange border when focus */
+        border: 1px solid #11a8ab;
+    
+    }
+.block {
+        height: 100vh;
+    }
+    
+    .trophy-cabinet div {
+      margin: 5px;
+    }
+
+    .trophy-cabinet {
+        margin: 15px 0;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .form-flex {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .form-left {
+        width: 50%;
+        float: left;
+    }
+
+    .input-icon {
+        font-size: 22px;
+        position: absolute;
+        left: 48px;
+        top: 10px;
+    }
+
+    .button-update {
+        border: none;
+        background: #cc324b;
+        display: block;
+        width: 175px;
+        line-height: 50px;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        margin: 0 auto;
+        border-radius: 5px;
+        -webkit-transition: background .3s;
+        transition: background .3s;
+    }
+
+    .form-right {
+        width: 50%;
+        float: right;
+    }
+
+
+@media (max-width: 1000px) {
+  .stats div span:nth-child(1) {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 900px) {
+  .profilePage {
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+  .profile {
+    width: 100%;
+  }
+  .profileStats {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .teamgame {
+    flex-direction: column;
+  }
+
+  .form-right {
+            width: 100%;
+            float: unset;
+            text-align: center;
+        }
+
+        .form-left {
+            width: 100%;
+            float: unset;
+            text-align: center;
+        }
+
+        .input-icon {
+            left: 120px
+        }
+
+  .teamProfile {
+    width: 100%;
+  }
+  .recentResults {
+    width: 100%;
+  }
+  .gamesProfile {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 1rem;
+    border-left: none;
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
+  }
+  .stats .circleProgress {
+    display: none;
+  }
+  .recentResults ul li {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width:570px) {
+        .input-icon {
+            left: 80px;
+        }
+    }
+
+@media (max-width: 450px) {
+  .stats div {
+    padding: 0;
+    margin: 0;
+    padding-right: 0.2rem;
+    padding-left: 0.2rem;
+  }
+
+  .input-icon {
+            left: 10px;
+        }
+
+  .stats div span:nth-child(2) {
+    font-size: 0.7rem;
+  }
+  .stats div span:nth-child(1) {
+    font-size: 1.5rem;
+  }
+  .recentResults ul li {
+    font-size: 0.7rem;
+  }
+}
+
+
+</style>
+
+<div class="profilePage">
+    <div class="profile">
+    <div>
+        <div class="profileImg">
+        <img style="border-radius: 0;" src="{{ user.userdtl.img_user.url }}" alt="" />
+        <!-- <img style="border-radius: 0;" src="{% static 'images/logo_black_png' %}" alt="" /> -->
+        </div>
+        <div class="profileContent">
+        <h2 style="color: #fff;" class="profileTitle">{{ user.username }}</h2>
+        <h4 style="color: #fff;" class="profileTitle"><span class="pdr-2"><i class="fab fa-playstation scnd-font-color"></i></span> {{ user.userdtl.psn }}</h4>
+        <h4 class="profileSubTitle" style="color: #fff;"><span class="pdr-2"><img class="country_flag" src="{{ user.userdtl.flag }}" alt="{{ user.userdtl.country }}"></span>{{ user.userdtl.country }}</h4>
+        <div class="social-media-sections">
+          {% if user.userdtl.twitter != None %}
+          <a href="{{user.userdtl.twitter}}"><i class="fab fa-twitter"></i></a>
+          {% endif %}
+          {% if user.userdtl.twitch != None %}
+          <a href="{{user.userdtl.twitch}}"><i class="fab fa-twitch"></i></a>
+          {% endif %}
+          {% if user.userdtl.youtube != None %}
+          <a href="{{user.userdtl.youtube}}"><i class="fab fa-youtube"></i></a>
+          {% endif %}
+          </div>
+
+      </div>
+    </div>
+    <div class="profileBtns">
+        <div onclick="openTab(event, 'profileDetail')" id="defaultOpen"  class="profileBtn">
+        <img src="{% static 'images/bell.svg' %}" alt="" />
+        <span>Account</span>
+        </div>
+        {% if request.user == user %}
+        <div onclick="openTab(event, 'notificationTab')"  class="profileBtn">
+        <img src="{% static 'images/bell.svg' %}" alt="" />
+        <span>Notifications</span>
+        </div>
+        <div onclick="openTab(event, 'settingTab')"  class="profileBtn">
+        <img src="{% static 'images/settings.svg' %}" alt="" />
+        <span>Setting</span>
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        <div class="profileDate">
+        <img src="{% static 'images/link.svg' %}" alt="" /> <span>Joined:</span>
+        <span>{{ user.date_joined }}</span>
+        </div>
+        <div class="profileDate">
+        <img src="{% static 'images/circular-clock-with-on-clock-hand.svg' %}" alt="" />
+        <span>Last Online:</span> <span>{{ user.last_login }}</span>
+        </div>
+    </div>
+    </div>
+    <div id="profileDetail" class="profileStats tabcontent">
+    <div class="profileStat">
+        <h3>{{ user.username}}'s Stats</h3>
+        <div class="stats">
+    
+        <div>
+            <span>{{ user.userdtl.win_ratio }}%</span>
+            <span
+            >Win <br />
+            Percentage</span
+            >
+        </div>
+        <div>
+            <span>{{ user.userdtl.total_matches }}</span>
+            <span
+            >Matches <br />
+            Played</span
+            >
+        </div>
+        <div>
+            <span>{{ user.userdtl.user_win }}</span>
+            <span
+            >Games <br />
+            Won</span
+            >
+        </div>
+        <div>
+            <span>{{ user.userdtl.user_lose }}</span>
+            <span
+            >Games <br />
+            Lost</span
+            >
+        </div>
+        
+      <div>
+        <span style="font-size: unset; padding: 10px;" class="gold-trophy"><i style="color: gold;" class="fa fa-trophy fa-5x"></i></span>
+        <span>{{ user.userdtl.gold_trophy }}</span>
+      </div>
+      <div>
+        <span style="font-size: unset; padding: 10px;" class="silver-trophy"><i style="color: silver;" class="fa fa-trophy fa-5x"></i></span>
+        <span>{{ user.userdtl.silver_trophy }}</span>
+      </div>
+      <div>
+        <span style="font-size: unset; padding: 10px;" class="silver-trophy"><i style="color: firebrick;" class="fa fa-trophy fa-5x"></i></span>
+        <span>{{ user.userdtl.bronze_trophy }}</span>
+      </div>
+    
+        </div>
+    </div>
+    <div>
+  <div class="recentResults">
+      <h3>Recent Results</h3>
+      <ul>
+        {% for match in matches %}
+        {% if match.active_match %}  
+        <li>
+           
+          {% if match.team_1.name == match.winner %}
+             <span class="recentWinner"><img src="{{ match.team_1.image.url }}" alt="">
+              
+              {{ match.team_1.name }}</span>
+             {% else %}
+              <span><img src="{{ match.team_1.image.url }}" alt="">
+              
+              {{ match.team_1.name }}</span>
+
+             {% endif %}
+              {% if match.team_1.name == match.winner %}
+             <span><span class="recentWinner">1 </span>  <span>vs</span> <span>0</span> </span>
+             {% elif match.team_2.name == match.winner %}
+             <span><span> 0 </span>  <span>vs</span> <span class="recentWinner">1</span> </span>
+             {% else %}
+             <span><span >0 </span>  <span>vs</span> <span>0</span> </span>
+             {% endif %}
+
+             {% if match.team_2.name == match.winner %}
+             <span class="recentWinner">{{ match.team_2.name }}
+              
+              <img src="{{ match.team_2.image.url }}" alt="">
+              
+            </span>
+            {% else %}
+             <span>{{ match.team_2.name }}
+              
+              <img src="{{ match.team_2.image.url }}" alt="">
+              
+            </span>
+            {% endif %}
+              
+            </li>
+            {% endif %}
+          {% endfor %}
+          
+      </ul>
+  </div>
+  <div class="teamgame">
+    <div class="teamProfile">
+        <h3>Teams</h3>
+        <div class="profileTeams">
+            {% for team in teams %}
+            
+            <div class="profileTeam">
+                <img src="{{ team.team.image.url }}" alt="">
+                <a href="{% url 'team' team.team.id %}" style="color: #fff;"><span>{{ team.team }}</span></a>
+                <span class="profileMembers">{{ team.rank }}</span>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+
+  </div>
+  
+      </div>
+</div>
+{% if request.user == user %}
+<div id="settingTab" style="overflow-y: auto;" class="profileStats block tabcontent">
+  <div class="account block">
+      <!-- ACCOUNT (RIGHT-CONTAINER) -->
+      <h2 class="titular">Edit Account</h2>
+      <form action="{% url 'update' %}"  enctype="multipart/form-data" method="POST">
+          <div class="form-flex">
+              {% csrf_token %}
+              <div class="form-left">
+                  <div class="input-container">
+
+                      <input name="fname" type="text" value="{{ user.first_name }}" placeholder="First Name" class="email text-input">
+                      <div class="input-icon password-icon"><span title="First Name"
+                              class="fas fa-dice-d6 scnd-font-color"></span></div>
+                  </div>
+                  <div class="input-container">
+                      <input type="text" name="lname" value="{{ user.last_name }}" placeholder="Last Name" class="password text-input">
+                      <div class="input-icon password-icon"><span title="Last Name"
+                              class="fas fa-dice-d6 scnd-font-color"></span></div>
+                  </div>
+                  <div class="input-container">
+                      <input type="email" name="email" placeholder="{{ user.email }}" value="{{ user.email }}" class="password text-input">
+                      <div class="input-icon password-icon"><span title="Last Name"
+                              class="far fa-envelope scnd-font-color"></span></div>
+                  </div>
+                  
+                  
+
+                  <div class="input-container">
+                      <input type="text" name="twitch" value="{{ user.userdtl.twitch }}"
+                          placeholder="{{ user.userdtl.twitch }}" class="password text-input">
+                      <div class="input-icon password-icon"><span title="Twitch Link"
+                              class="fab fa-twitch scnd-font-color"></span></div>
+                  </div>
+
+
+                  <div class="input-container">
+
+                      <input type="text" name="psn" placeholder="{{ user.userdtl.psn }}"
+                          class="password text-input">
+                      <div class="input-icon password-icon"><span title="PlayStation / PSN"
+                              class="fab fa-playstation scnd-font-color"></span></div>
+                  </div>
+
+              </div>
+              <div class="form-right">
+                  <div class="input-container">
+
+                      <select name="timezone" aria-placeholder="{{ user.userdtl.country }}">
+                          <option selected>{{ user.userdtl.timezone_user }}</option>
+                          {% for timezone in timezone %}
+
+                          <option value="{{ timezone }}">{{ timezone }}</option>
+                          {% endfor %}
+                      </select>
+
+                      <div class="input-icon password-icon"><span title="Timezones"
+                              class="fas fa-clock scnd-font-color"></span></div>
+                  </div>
+                  <div class="input-container">
+                      <select name="country" aria-placeholder="{{ user.userdtl.country }}">
+                          <option selected>{{ user.userdtl.country }}</option>
+                          {% for country in countries %}
+
+                          <option value="{{ country }}">{{ country }}</option>
+                          {% endfor %}
+                      </select>
+                      <div class="input-icon password-icon"><span title="Country"
+                              class="fas fa-globe scnd-font-color"></span></div>
+                  </div>
+                  <div class="input-container">
+                      <input type="text" value="{{ user.userdtl.youtube }}" name="youtube"
+                          placeholder="{{ user.userdtl.youtube }}" class="password text-input">
+                      <div class="input-icon password-icon"><span title="Youtube Link"
+                              class="fab fa-youtube scnd-font-color"></span></div>
+                  </div>
+                  <div class="input-container">
+
+                      <input type="text" value="{{ user.userdtl.twitter }}" name="twitter"
+                          placeholder="{{ user.userdtl.twitter }}" class="password text-input">
+                      <div class="input-icon password-icon"><span title="Twitter Link"
+                              class="fab fa-twitter scnd-font-color"></span></div>
+                  </div>
+                 
+                  <div class="input-container">
+                      {% if user.userdtl.img_user != "" %}
+                      <input style="display: unset; padding : 10px 2px;" type="file" value="{{ user.userdtl.img_user.url }}" name="image_change"
+                          placeholder="{{ user.userdtl.twitter }}" class="password text-input">
+                          {% else %}
+                          <input style="display: unset; padding : 10px 2px;" type="file" name="image_change"
+                              placeholder="{{ user.userdtl.twitter }}" class="password text-input">
+                      {% endif %}
+                          <div class="input-icon password-icon"><span title="Image"
+                              class="fa fa-picture-o scnd-font-color"></span></div>
+                  </div>
+
+              </div>
+          </div>
+
+
+          
+        
+          
+          
+
+                
+
+          <div class="button-container" style="text-align: center;">
+              <button class="button-update" type="submit">Update</button>
+          </div>
+      </form>
+
+      <div style="text-align: center; padding: 15px 0;" class="pt-4">
+          <form method="POST" action="{% url 'changepassword' %}">
+          {% csrf_token %}
+              <a style="color: #fff;" class="dark-grey-text d-flex justify-content-between" data-toggle="collapse"
+            href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Change Password
+            <span><i class="fas fa-key pt-1"></i></span>
+          </a>
+          <div style="text-align: -webkit-center;" class="collapse" id="collapseExample">
+            <div class="mt-3">
+              <div class="md-form md-outline mb-0">
+                <input type="password" id="oldPassword" name="old_password" class="form-control font-weight-light"
+                  placeholder="Enter Old Password">
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="md-form md-outline mb-0">
+                <input type="password" id="password" name="new_password1"  class="form-control font-weight-light"
+                  placeholder="Enter New password">
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="md-form md-outline mb-0">
+                <input type="password" id="password1" name="new_password2" class="form-control font-weight-light"
+                  placeholder="Enter New Password">
+              </div>
+            </div><hr>
+            <div class="mt-3">
+            <button style="float: unset;" class="btn submit_btn" onclick="ChangePassword()" style="margin: 15px; margin-top: 0px; cursor: pointer;">Update My
+              Password </button>
+          </div>
+          </div>
+      </form>
+        </div>
+
+
+  </div>
+</div>
+
+<div style="overflow: auto;" id="notificationTab" class="profileStats profile block tabcontent">
+  {% for invite in user.userdtl.invitation.all %}
+
+  <div class="notice success">
+      <p style="float: unset; color: teal;"> You have been Invited to {{ invite.name }}, for
+          {{ invite.ladder }}
+          <a href="{% url 'accept' invite.name %}"><button style="border: none;
+                width: 25px;
+                border-radius: 5px;
+" type="button" class="btn-labeled btn-success">
+                  <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span></button> </a>
+          <a href="{% url 'deny' invite.id %}"><button style="border: none;
+                width: 25px;
+                border-radius: 5px;
+" type="button" class="btn-labeled btn-danger">
+                  <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span></button> </a>
+      </p>
+  </div>
+  {% empty %}
+  No Notifications
+  {% endfor%}
+  
+</div>
+{% endif %}
+
+
+</div>
+
+</div>
+{% endblock %}

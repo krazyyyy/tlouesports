@@ -1,0 +1,665 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} {{ ladder.Name }} {% endblock %}
+
+{% block body %}
+
+<div style="padding: 0;" class="container-fluid">
+   {% if options.ladder_banner %}
+   <div class="inner-page-banner" style="background-image: url('{{ options.ladder_banner.url }}');">
+   {% else%}
+      <div class="inner-page-banner" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/738/436/859/naughty-dog-the-last-of-us-part-ii-playstation-ellie-ashley-johnson-hd-wallpaper-preview.jpg');">
+   {% endif %}
+
+   <div class="row">
+
+      
+   </div>
+</div>
+</div>
+<div style="float: unset;" class="inner-information-text">
+   <div style="padding: 0;" class="container-fluid">
+      <h3>{{ladder.Name}}</h3>
+      <ul class="breadcrumb">
+         <li><a href="{% url 'index' %}">Home</a></li>
+         <li><a href="{% url 'games' %}">Games</a></li>
+         <li class="active"><a href="{% url 'ladder' ladder.id %}">{{ladder.Name}}</a></li>
+      </ul>
+   </div>
+</div>
+</section>
+
+<div class="inner-page">
+<div style="margin-bottom: 0; background: #1c2739;" class="inner-body">
+
+
+
+<article style="flex-direction: row; -webkit-flex-direction: row;" class="top">
+
+<div class="col left about">
+   <figure>
+       <img style="max-width: 490px;" class="img-logo" src="{{ ladder.image.url }}"
+           alt="{{ ladder.Name }}">
+   </figure>
+   
+</div>
+<div class="col right">
+   {% if user.is_authenticated %}
+   {% if participant %}
+      <a href="{% url 'team' pteam.id %}" class="btn-default">
+          Your Team
+      </a>
+      {% else %}
+      {% if ladder.lock_ladder %}
+      <a  class="btn-default">
+          Closed Ladder
+      </a>
+      {% else %}
+      <a data-toggle="modal" data-target="#teamModal" class="btn-default">
+          Create Team
+      </a>
+   {% endif %}
+   {% endif %}
+   {% else %}
+      <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal" class="btn-default">
+          Login
+      </a>
+   
+   {% endif %}
+ </div>
+<div>
+
+</div>
+</article>
+
+<style>
+   .name, .status {
+      color: #fff;
+   }
+</style>
+
+<article style="margin-bottom: 20px;" class="bottom">
+   <div class="resp_sty">
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Ladder 
+      </div>
+      <div class="status">
+         {{ ladder.Name }}
+
+      </div>
+   </div> 
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Game
+      </div>
+      <div class="status">
+         {{ ladder.game }}
+
+      </div>
+   </div> 
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Season
+      </div>
+      <div class="status">
+         {{ ladder.season }}
+
+      </div>
+   </div> 
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Region
+      </div>
+      <div class="status">
+         {{ ladder.region }}
+
+      </div>
+   </div> 
+</div>
+   <div class="resp_sty"  >
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Matches
+      </div>
+      <div class="status">
+         {{ ladder.matches_played }}
+
+      </div>
+   </div> 
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Teams
+      </div>
+      <div class="status">
+         {{ ladder.teams.count }}
+
+      </div>
+   </div> 
+   {% if  ladder.is_finished %}
+   <div style="width: 100%; justify-content: center; font-weight: bolder;" class="team-info">
+      <div style="color: tomato;" class="name">
+         Ladder Ended
+      </div>
+   </div>
+   {% else %} 
+   <div style="width: 100%;" class="team-info">
+      <div class="name">
+         Time Left
+      </div>
+      <div class="status">
+         <span id="days">
+
+         </span>
+         <span id="hours">
+            00
+         </span>:
+         <span id="minutes">
+            00
+         </span>:
+         <span id="seconds">
+            00
+         </span>
+      </div>
+   </div> 
+   {% endif %}
+   
+</div>
+</article>
+<script>
+   
+   count = "{{ ladder.count_down }}"
+   timer = count.split(",")
+   idx = (timer.length - 1)
+   
+   
+   function pad(val) {
+			return val < 9 ? val : "0" + val;
+   }
+
+   t = timer[idx].split(":")
+   sec = document.querySelector("#seconds")
+   min = document.querySelector("#minutes")
+   hour = document.querySelector("#hours")
+   days = document.querySelector("#days")
+   const counter =()=> {
+      
+      setInterval(function() {
+         t[2] = pad(parseInt(--t[2] % 60, 10))
+         
+         if (t[2] <= 0) {
+            t[2] = 59
+            t[1] = t[1] - 1
+            
+            if (t[1] <= 0)
+            {
+               t[1] = 59
+               t[0] = t[0] - 1
+               if (t[0] <= 0  && timer[0].includes('day')) {
+                  t[0] = 23
+                  t_ = timer[0].split(" ")
+                  
+                  t_[0] = t_[0] - 1
+                  day = t_[0] + t_[1] + ","
+               }
+               else if (timer[0].includes('day')) {
+                  day = timer[0] + ","
+               }
+               else {
+                  day = ''
+               }
+            }
+         }
+         
+      if (typeof(day) == 'undefined') {
+          if (timer[0].includes('day')) {
+               day = timer[0] + ","
+            }
+            else {
+               day = ''
+            } 
+      }
+         
+      days.innerHTML = ''
+      days.innerHTML = day
+      hour.innerHTML = ''
+      hour.innerHTML = t[0]
+      min.innerHTML = ''
+      min.innerHTML = t[1]
+      sec.innerHTML = ''
+      sec.innerHTML = parseInt(t[2])
+      }, 1000)
+   }
+   counter()
+</script>
+
+
+<div style="margin-bottom: 0;" class="section-header center-column col-white">
+                
+   <div class="actions">
+       <a onclick="openTab(event, 'ladderTable')" id="defaultOpen" class="btn-default">
+          Standings
+       </a>
+   </div>
+   {% if not ladder.end_ladder %}
+   {% if participant %}
+   <div class="actions">
+       <a href="#" data-toggle="modal" data-target="#matchFinder" class="btn-default">
+           Match Finder
+       </a>
+   </div>
+   <div class="actions">
+       <a href="#" data-toggle="modal" data-target="#createMatch" class="btn-default">
+           Post Match </a>
+   
+       </div>
+       {% endif %}
+   {% endif %}
+   <div class="actions">
+       <a onclick="openTab(event, 'rulesMenu')" class="btn-default">
+           Rules </a>
+       
+       
+   </div>
+   
+</div>
+
+
+
+</div>
+</div>
+<section style="background: 1c2739; padding: 0;" id="contant" class="contant">
+   <div style="padding: 0;" class="container-fluid">
+      <div class="row">
+   
+            
+
+
+
+                     <div class="container-fluid">
+                        
+                     <div id="rulesMenu" class="standings tabcontent">
+                        <ul class="col">
+                           <li style="margin: 0 0px 6px 0px;">
+                              <h2 style="color : #fff">Rules for, {{ ladder.Name }}</h2>
+                           </li>
+                        </ul>
+                        <div>
+                           <p style="color : #fff">{{ladder.rules | safe  }}</p>
+                        </div>
+                     </div>
+                     </div>
+                     <!-- <div id="playOff" class="tabcontent">
+                        <div class="match-banners">
+                           
+                        </div>
+                        <div class="modal-footer">
+                           <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+                        </div>
+                     </div> -->
+              
+
+
+
+        
+
+
+            <div id="ladderTable" style="padding: 0;" class="container-fluid tabcontent">
+                  <div class="standings row">
+                  <ul class="col">
+                     <li>
+                        <span style="justify-content:center;" class="left-standing">Standings</span>
+                     </li>
+                     <li>
+                        <div style="margin-left: 18px;" class="ranks_">
+
+                        </div>
+                        <div style="margin-left: 50px ;" class="left-standing">
+                           <span>
+                           Teams
+                        </span>
+                     </div>
+                        <div class="right-standing">
+                           <span>M</span>
+                           <span>W</span>
+                           <span>L</span>
+                           <span>S</span>
+                           <span>%</span>
+                           <span>ELO</span>
+                        </div>
+                     </li>
+
+                     {% for team in teams %}
+                     <li>
+                        <div style="margin-left: 18px;" class="ranks_">
+                        {{ forloop.counter }}
+                     </div>
+                           <div class="left-standing">
+
+                              {% if request.user and participant %}
+                              <a title="Challenge" style="width: 40px; height: 35px; border-radius: 50px; margin-right: 8px;" onclick="getTeam('{{team.id}}', '{{team.name}}')" href="#" data-toggle="modal" data-target="#challengeModal" class="btn-default">
+                                 C </a>
+                                 {% endif %}
+                              <figure>
+                                 <img src="{{ team.image.url }}" alt="Team Flawed Bot">
+                             </figure>
+                             <span>    <a style="color: #fff;" href="{% url 'team' team.id %}">  {{ team.name }}  </a>
+                              {% if team.win_streak >= 3 %}
+                                 <i class="fa fa-fire" style="color: firebrick;  margin-right: 5px; font-size: 20px;"></i>
+                              {% endif %}
+                              {% if team.crown %}
+                                 <i style="color: gold; margin-right:5px; font-size: 20px;" class="fas fa-crown"></i>
+                              {% endif %}
+                            </span>
+                           </div>
+                           <div class="right-standing">
+                           <span>{{ team.total_matches }}</span>
+                           <span>{{ team.Win }}</span>
+                           <span>{{ team.Lose }}</span>
+                           <span>{{ team.win_streak }}</span>
+                           <span>{{ team.win_ratio }}</span>
+                           <span>{{ team.rating }}</span>
+                        </div>
+                        
+                     </li>
+                     {% endfor %}
+
+                  </ul>
+               </div>
+            
+
+
+
+
+
+         </div>
+      </div>
+   </div>
+</section>
+
+
+<!-- Match Finder Modal -->
+{% if pteam %}
+<div class="modal fade" id="matchFinder" tabindex="-1" role="modal" aria-labelledby="matchFinder" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title text-center" id="loginModalTitle">Match Finder</h5>
+               <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                   aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+
+           <div class="modal-body">
+               <div class="team-info">
+                   <div class="time" style="width: 33%;">
+                       Time
+                   </div>
+                   <div class="games">
+                       Game
+                   </div>
+                   <div class="actions">
+                       Action
+                   </div>
+               </div>
+               {% for match in matches %}
+               {% if match.is_expired %}
+               {% if match.public %}
+               {% if match.team_1 == pteam %}
+               <div class="match-team-heading">
+                   Your Matches
+               </div>
+               {% endif %}
+               <div class="team-info">
+                   <div class="time">
+                       {{ match.time }}
+                   </div>
+                   <div class="games">
+                       {{ match.match_type }}
+                   </div>
+                   <div class="actions">
+
+                       {% if match.team_1 == pteam %}
+                       <a href="{% url 'cancel' match.id %}"><button style="border: none;
+                           width: 25px;
+                           border-radius: 5px;
+       " type="button" class="btn-labeled btn-danger">
+                               <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span></button> </a>
+                       {% else %}
+                       <a href="{% url 'accept' match.id pteam.id %}"><button style="border: none;
+                       width: 25px;
+                       border-radius: 5px;
+                       " type="button" class="btn-labeled btn-success">
+                               <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span></button> </a>
+                       {% endif %}
+                   </div>
+               </div>
+               {% endif %}
+               {% endif %}
+               {% endfor %}
+           </div>
+           <div class="modal-footer">
+               <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+           </div>
+       </div>
+   </div>
+</div>
+
+{% endif %}
+<div class="modal fade" id="createMatch" tabindex="-1" role="modal" aria-labelledby="createMatch" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title text-center" id="loginModalTitle" style="float: left;">Create Match</h5>
+               <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                   aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <p> You are Creating Match with your Team <strong>{{ pteam }}</strong></p>
+           
+           <div class="modal-body">
+               <form method='post' action="{% url 'postmatch' %}">
+                   {% csrf_token %}
+                   <label for="" id="warn-label" style="color :red; display: none; transition: .4s ease-in;"> You do
+                       not have enough player to play this game</label>
+                   <div class="form-group">
+                       <label for="team-1"> > Team </label>
+                       <input type="" class="form-control" value="{{ pteam.name }}" disabled>
+                   </div>
+                   <div class="form-group">
+                       <label for="Number of Player"> > Number of Player</label>
+                       <select required aria-placeholder="Select Player" class="form-control" id="playerNo"
+                           name="players">
+                           <option selected value="">Select Players</option>
+                           <option value="3v3">3v3</option>
+                           <option value="4v4">4v4</option>
+                           <option value="5v5">5v5</option>
+                       </select>
+                   </div>
+                   <div class="form-group">
+                       <label for="best"> > Best of *</label>
+                       <select class="form-control" name="best">
+                           <option selected value="Best of 1">Best of 1</option>
+                           <option value="Best of 3">Best of 3</option>
+                           <option value="Best of 5">Best of 5</option>
+                       </select>
+                       <input type="hidden" name="ladder_id" value="{{ ladder.id }}">
+                       
+                       <input type="hidden" name="team-1" value="{{ pteam }}">
+                       
+                   </div>
+                   <div class="form-group">
+                       <input type="time" name="datetime" required>
+                   </div>
+                   <div style="justify-content: space-evenly; text-align:center" class="team-info select-player">
+
+                       
+                       <div class="form-group" id="member-gen">
+
+                           <input type="hidden" name="member-count" value="{{ players.count}}">
+                           <div class="team-info">
+                               {% for member in players %}
+                               <div style="margin:15px;" class="name">
+                                   <img style=" width: 50px;
+                                    height: 50px;"
+                                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnI43rT1772r2qq8iKTO42izF8afB7JP9GRw&usqp=CAU"
+                                       alt="">
+                                   <p>{{ member.member }}</p>
+                                   <input type="checkbox" value="{{member.id}}" name="member-{{ forloop.counter }}">
+                               </div>
+                               {% endfor %}
+
+                           </div>
+                       </div>
+                   </div>
+                   <button type="submit" class="btn btn-primary btn-block">Post</button>
+
+               </form>
+           </div>
+           <div class="modal-footer">
+               <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+           </div>
+       </div>
+   </div>
+</div>
+
+<!-- Challenge Modal -->
+
+<div class="modal fade" id="challengeModal" tabindex="-1" role="modal" aria-labelledby="createMatch" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title text-center" id="loginModalTitle" style="float: left;">Create Match</h5>
+               <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                   aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <p> You are Challenging <strong id="challengename"></strong></p>
+           
+           <div class="modal-body">
+               <form method='post' action="{% url 'postmatch' %}">
+                   {% csrf_token %}
+                   <label for="" id="warn-label" style="color :red; display: none; transition: .4s ease-in;"> You do
+                       not have enough player to play this game</label>
+                   <div class="form-group">
+                       <label for="team-1"> > Team </label>
+                       <input type="" class="form-control" value="{{ pteam.name }}" disabled>
+                   </div>
+                   <div class="form-group">
+                       <label for="Number of Player"> > Number of Player</label>
+                       <select required aria-placeholder="Select Player" class="form-control" id="playerNo"
+                           name="players">
+                           <option selected value="">Select Players</option>
+                           <option value="3v3">3v3</option>
+                           <option value="4v4">4v4</option>
+                           <option value="5v5">5v5</option>
+                       </select>
+                   </div>
+                   <div class="form-group">
+                       <label for="best"> > Best of *</label>
+                       <select class="form-control" name="best">
+                           <option selected value="Best of 1">Best of 1</option>
+                           <option value="Best of 3">Best of 3</option>
+                           <option value="Best of 5">Best of 5</option>
+                       </select>
+                       <input type="hidden" name="ladder_id" value="{{ ladder.id }}">
+                       
+                       <input type="hidden" name="team-1-id" id="team_2_value" >
+                       <input type="hidden" name="team-2" value="{{ pteam }}" >
+                   </div>
+                   <div class="form-group">
+                       <input type="time" name="datetime" required>
+                   </div>
+                   <div style="justify-content: space-evenly; text-align:center" class="team-info select-player">
+
+                       
+                       <div class="form-group" id="member-gen">
+
+                           <input type="hidden" name="member-count" value="{{ players.count}}">
+                           <div class="team-info">
+                               {% for member in players %}
+                               <div style="margin:15px;" class="name">
+                                   {% if member.image %}
+                                   <img style=" width: 50px;
+                                    height: 50px;"
+                                       src="{{ member.image.url }}"
+                                       alt="">
+                                    {% else %}
+                                   <img style=" width: 50px;
+                                    height: 50px;"
+                                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnI43rT1772r2qq8iKTO42izF8afB7JP9GRw&usqp=CAU"
+                                       alt="">
+                                    {% endif %}
+
+                                   <p>{{ member.member }}</p>
+                                   <input type="checkbox" value="{{member.id}}" name="member-{{ forloop.counter }}">
+                               </div>
+                               {% endfor %}
+
+                           </div>
+                       </div>
+                   </div>
+                   <button type="submit" class="btn btn-primary btn-block">Post</button>
+
+               </form>
+           </div>
+           <div class="modal-footer">
+               <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+<!-- Team Modal -->
+<div class="modal fade" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModal" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-center" id="loginModalTitle" style="float: left;">Create Your Team For,
+               {{ladder.Name}}</h5>
+            <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form method='post'>
+               {% csrf_token %}
+               <div class="form-group">
+                  <label for="teamname">TeamName</label>
+                  <input type="text" class="form-control" id="teamname" name="teamname" placeholder="TeamName" required>
+               </div>
+               <div class="form-group">
+                  <label for="tadmin">Admin</label>
+                  <input type="text" class="form-control" id="tadmin" name="tadmin" placeholder="Admin"
+                     value="{{request.user.username}}">
+               </div>
+
+
+               <input type="hidden" name="ladderid" value="{{ladder.id}}">
+
+
+               <button type="submit" class="btn btn-primary btn-block">Create Your Team</button>
+
+            </form>
+         </div>
+         <div class="modal-footer">
+            <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   function getTeam(id, name) {
+       document.querySelector("#team_2_value").value = id
+       document.querySelector("#challengename").innerHTML = ''
+       document.querySelector("#challengename").innerHTML = name
+   }
+</script>
+
+{% endblock %}

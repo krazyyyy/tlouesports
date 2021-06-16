@@ -1,0 +1,1003 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div>
+
+
+
+
+
+
+
+    <fieldset class="module aligned ">
+
+
+
+        <div class="form-row field-about_image">
+
+
+            <div>
+
+
+                <label for="id_about_image">About image:</label>
+
+                <p class="file-upload">Currently: <a href="/media/support/937914.jpg">media/support/937914.jpg</a>
+                    <span class="clearable-file-input">
+                        <input type="checkbox" name="about_image-clear" id="about_image-clear_id">
+                        <label for="about_image-clear_id">Clear</label></span><br>
+                    Change:
+                    <input type="file" name="about_image" accept="image/*" id="id_about_image"></p>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-about_info">
+
+
+            <div>
+
+
+                <label for="id_about_info">About info:</label>
+
+                <div class="django-ckeditor-widget" data-field-id="id_about_info" style="display: inline-block;">
+                    <textarea cols="40" id="id_about_info" name="about_info" rows="10" data-processed="1"
+                        data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;Full&quot;, &quot;height&quot;: 291, &quot;width&quot;: 835, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;en-us&quot;}"
+                        data-external-plugin-resources="[]" data-id="id_about_info" data-type="ckeditortype"
+                        style="visibility: hidden; display: none;">Testing News Text</textarea>
+                    <div id="cke_id_about_info"
+                        class="cke_1 cke cke_reset cke_chrome cke_editor_id_about_info cke_ltr cke_browser_webkit"
+                        dir="ltr" lang="en" role="application" aria-labelledby="cke_id_about_info_arialbl"
+                        style="width: 835px;"><span id="cke_id_about_info_arialbl" class="cke_voice_label">Rich Text
+                            Editor, id_about_info</span>
+                        <div class="cke_inner cke_reset" role="presentation"><span id="cke_1_top"
+                                class="cke_top cke_reset_all" role="presentation"
+                                style="height: auto; user-select: none;"><span id="cke_16"
+                                    class="cke_voice_label">Editor toolbars</span><span id="cke_1_toolbox"
+                                    class="cke_toolbox" role="group" aria-labelledby="cke_16"
+                                    onmousedown="return false;"><span id="cke_19" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span id="cke_17"
+                                            class="cke_combo cke_combo__styles cke_combo_off" role="presentation"><span
+                                                id="cke_17_label" class="cke_combo_label">Styles</span><a
+                                                class="cke_combo_button" title="Formatting Styles" tabindex="-1"
+                                                href="javascript:void('Formatting Styles')" hidefocus="true"
+                                                role="button" aria-labelledby="cke_17_label" aria-haspopup="listbox"
+                                                onkeydown="return CKEDITOR.tools.callFunction(5,event,this);"
+                                                onfocus="return CKEDITOR.tools.callFunction(6,event);"
+                                                onclick="CKEDITOR.tools.callFunction(4,this);return false;"
+                                                aria-expanded="false"><span id="cke_17_text"
+                                                    class="cke_combo_text cke_combo_inlinelabel">Styles</span><span
+                                                    class="cke_combo_open"><span
+                                                        class="cke_combo_arrow"></span></span></a></span><span
+                                            id="cke_18" class="cke_combo cke_combo__format cke_combo_off"
+                                            role="presentation"><span id="cke_18_label"
+                                                class="cke_combo_label">Format</span><a class="cke_combo_button"
+                                                title="Paragraph Format" tabindex="-1"
+                                                href="javascript:void('Paragraph Format')" hidefocus="true"
+                                                role="button" aria-labelledby="cke_18_label" aria-haspopup="listbox"
+                                                onkeydown="return CKEDITOR.tools.callFunction(8,event,this);"
+                                                onfocus="return CKEDITOR.tools.callFunction(9,event);"
+                                                onclick="CKEDITOR.tools.callFunction(7,this);return false;"
+                                                aria-expanded="false"><span id="cke_18_text"
+                                                    class="cke_combo_text cke_combo_inlinelabel">Format</span><span
+                                                    class="cke_combo_open"><span
+                                                        class="cke_combo_arrow"></span></span></a></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_20"
+                                                class="cke_button cke_button__bold cke_button_off"
+                                                href="javascript:void('Bold')" title="Bold (Ctrl+B)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_20_label"
+                                                aria-describedby="cke_20_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(10,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(11,event);"
+                                                onclick="CKEDITOR.tools.callFunction(12,this);return false;"><span
+                                                    class="cke_button_icon cke_button__bold_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -24px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_20_label" class="cke_button_label cke_button__bold_label"
+                                                    aria-hidden="false">Bold</span><span id="cke_20_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+B</span></a><a id="cke_21"
+                                                class="cke_button cke_button__italic cke_button_off"
+                                                href="javascript:void('Italic')" title="Italic (Ctrl+I)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_21_label"
+                                                aria-describedby="cke_21_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(13,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(14,event);"
+                                                onclick="CKEDITOR.tools.callFunction(15,this);return false;"><span
+                                                    class="cke_button_icon cke_button__italic_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -48px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_21_label" class="cke_button_label cke_button__italic_label"
+                                                    aria-hidden="false">Italic</span><span id="cke_21_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+I</span></a><a id="cke_22"
+                                                class="cke_button cke_button__underline cke_button_off"
+                                                href="javascript:void('Underline')" title="Underline (Ctrl+U)"
+                                                tabindex="-1" hidefocus="true" role="button"
+                                                aria-labelledby="cke_22_label" aria-describedby="cke_22_description"
+                                                aria-haspopup="false" aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(16,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(17,event);"
+                                                onclick="CKEDITOR.tools.callFunction(18,this);return false;"><span
+                                                    class="cke_button_icon cke_button__underline_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -144px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_22_label"
+                                                    class="cke_button_label cke_button__underline_label"
+                                                    aria-hidden="false">Underline</span><span id="cke_22_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+U</span></a><a id="cke_23"
+                                                class="cke_button cke_button__strike cke_button_off"
+                                                href="javascript:void('Strikethrough')" title="Strikethrough"
+                                                tabindex="-1" hidefocus="true" role="button"
+                                                aria-labelledby="cke_23_label" aria-describedby="cke_23_description"
+                                                aria-haspopup="false" aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(19,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(20,event);"
+                                                onclick="CKEDITOR.tools.callFunction(21,this);return false;"><span
+                                                    class="cke_button_icon cke_button__strike_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -72px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_23_label" class="cke_button_label cke_button__strike_label"
+                                                    aria-hidden="false">Strikethrough</span><span
+                                                    id="cke_23_description" class="cke_button_label"
+                                                    aria-hidden="false"></span></a><a id="cke_24"
+                                                class="cke_button cke_button__undo cke_button_disabled "
+                                                href="javascript:void('Undo')" title="Undo (Ctrl+Z)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_24_label"
+                                                aria-describedby="cke_24_description" aria-haspopup="false"
+                                                aria-disabled="true"
+                                                onkeydown="return CKEDITOR.tools.callFunction(22,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(23,event);"
+                                                onclick="CKEDITOR.tools.callFunction(24,this);return false;"><span
+                                                    class="cke_button_icon cke_button__undo_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -2040px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_24_label" class="cke_button_label cke_button__undo_label"
+                                                    aria-hidden="false">Undo</span><span id="cke_24_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+Z</span></a><a id="cke_25"
+                                                class="cke_button cke_button__redo cke_button_disabled "
+                                                href="javascript:void('Redo')" title="Redo (Ctrl+Y)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_25_label"
+                                                aria-describedby="cke_25_description" aria-haspopup="false"
+                                                aria-disabled="true"
+                                                onkeydown="return CKEDITOR.tools.callFunction(25,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(26,event);"
+                                                onclick="CKEDITOR.tools.callFunction(27,this);return false;"><span
+                                                    class="cke_button_icon cke_button__redo_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1992px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_25_label" class="cke_button_label cke_button__redo_label"
+                                                    aria-hidden="false">Redo</span><span id="cke_25_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+Y</span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_26" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_27"
+                                                class="cke_button cke_button__link cke_button_off"
+                                                href="javascript:void('Link')" title="Link (Ctrl+K)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_27_label"
+                                                aria-describedby="cke_27_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(28,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(29,event);"
+                                                onclick="CKEDITOR.tools.callFunction(30,this);return false;"><span
+                                                    class="cke_button_icon cke_button__link_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1296px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_27_label" class="cke_button_label cke_button__link_label"
+                                                    aria-hidden="false">Link</span><span id="cke_27_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+K</span></a><a id="cke_28"
+                                                class="cke_button cke_button__unlink cke_button_disabled "
+                                                href="javascript:void('Unlink')" title="Unlink" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_28_label"
+                                                aria-describedby="cke_28_description" aria-haspopup="false"
+                                                aria-disabled="true"
+                                                onkeydown="return CKEDITOR.tools.callFunction(31,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(32,event);"
+                                                onclick="CKEDITOR.tools.callFunction(33,this);return false;"><span
+                                                    class="cke_button_icon cke_button__unlink_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1320px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_28_label" class="cke_button_label cke_button__unlink_label"
+                                                    aria-hidden="false">Unlink</span><span id="cke_28_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_29" class="cke_button cke_button__anchor cke_button_off"
+                                                href="javascript:void('Anchor')" title="Anchor" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_29_label"
+                                                aria-describedby="cke_29_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(34,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(35,event);"
+                                                onclick="CKEDITOR.tools.callFunction(36,this);return false;"><span
+                                                    class="cke_button_icon cke_button__anchor_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1272px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_29_label" class="cke_button_label cke_button__anchor_label"
+                                                    aria-hidden="false">Anchor</span><span id="cke_29_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_30" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_31"
+                                                class="cke_button cke_button__image cke_button_off"
+                                                href="javascript:void('Image')" title="Image" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_31_label"
+                                                aria-describedby="cke_31_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(37,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(38,event);"
+                                                onclick="CKEDITOR.tools.callFunction(39,this);return false;"><span
+                                                    class="cke_button_icon cke_button__image_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -984px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_31_label" class="cke_button_label cke_button__image_label"
+                                                    aria-hidden="false">Image</span><span id="cke_31_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_32" class="cke_button cke_button__flash cke_button_off"
+                                                href="javascript:void('Flash')" title="Flash" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_32_label"
+                                                aria-describedby="cke_32_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(40,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(41,event);"
+                                                onclick="CKEDITOR.tools.callFunction(42,this);return false;"><span
+                                                    class="cke_button_icon cke_button__flash_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -624px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_32_label" class="cke_button_label cke_button__flash_label"
+                                                    aria-hidden="false">Flash</span><span id="cke_32_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_33" class="cke_button cke_button__table cke_button_off"
+                                                href="javascript:void('Table')" title="Table" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_33_label"
+                                                aria-describedby="cke_33_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(43,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(44,event);"
+                                                onclick="CKEDITOR.tools.callFunction(45,this);return false;"><span
+                                                    class="cke_button_icon cke_button__table_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1944px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_33_label" class="cke_button_label cke_button__table_label"
+                                                    aria-hidden="false">Table</span><span id="cke_33_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_34" class="cke_button cke_button__horizontalrule cke_button_off"
+                                                href="javascript:void('Insert Horizontal Line')"
+                                                title="Insert Horizontal Line" tabindex="-1" hidefocus="true"
+                                                role="button" aria-labelledby="cke_34_label"
+                                                aria-describedby="cke_34_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(46,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(47,event);"
+                                                onclick="CKEDITOR.tools.callFunction(48,this);return false;"><span
+                                                    class="cke_button_icon cke_button__horizontalrule_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -936px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_34_label"
+                                                    class="cke_button_label cke_button__horizontalrule_label"
+                                                    aria-hidden="false">Insert Horizontal Line</span><span
+                                                    id="cke_34_description" class="cke_button_label"
+                                                    aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_35" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_36"
+                                                class="cke_button cke_button__textcolor cke_button_expandable cke_button_off"
+                                                href="javascript:void('Text Color')" title="Text Color" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_36_label"
+                                                aria-describedby="cke_36_description" aria-haspopup="listbox"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(49,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(50,event);"
+                                                onclick="CKEDITOR.tools.callFunction(51,this);return false;"
+                                                aria-expanded="false"><span
+                                                    class="cke_button_icon cke_button__textcolor_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -408px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_36_label"
+                                                    class="cke_button_label cke_button__textcolor_label"
+                                                    aria-hidden="false">Text Color</span><span id="cke_36_description"
+                                                    class="cke_button_label" aria-hidden="false"></span><span
+                                                    class="cke_button_arrow"></span></a><a id="cke_37"
+                                                class="cke_button cke_button__bgcolor cke_button_expandable cke_button_off"
+                                                href="javascript:void('Background Color')" title="Background Color"
+                                                tabindex="-1" hidefocus="true" role="button"
+                                                aria-labelledby="cke_37_label" aria-describedby="cke_37_description"
+                                                aria-haspopup="listbox" aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(52,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(53,event);"
+                                                onclick="CKEDITOR.tools.callFunction(54,this);return false;"
+                                                aria-expanded="false"><span
+                                                    class="cke_button_icon cke_button__bgcolor_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -384px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_37_label" class="cke_button_label cke_button__bgcolor_label"
+                                                    aria-hidden="false">Background Color</span><span
+                                                    id="cke_37_description" class="cke_button_label"
+                                                    aria-hidden="false"></span><span
+                                                    class="cke_button_arrow"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_38" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_39"
+                                                class="cke_button cke_button__smiley cke_button_off"
+                                                href="javascript:void('Smiley')" title="Smiley" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_39_label"
+                                                aria-describedby="cke_39_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(55,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(56,event);"
+                                                onclick="CKEDITOR.tools.callFunction(57,this);return false;"><span
+                                                    class="cke_button_icon cke_button__smiley_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1104px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_39_label" class="cke_button_label cke_button__smiley_label"
+                                                    aria-hidden="false">Smiley</span><span id="cke_39_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_40" class="cke_button cke_button__specialchar cke_button_off"
+                                                href="javascript:void('Insert Special Character')"
+                                                title="Insert Special Character" tabindex="-1" hidefocus="true"
+                                                role="button" aria-labelledby="cke_40_label"
+                                                aria-describedby="cke_40_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(58,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(59,event);"
+                                                onclick="CKEDITOR.tools.callFunction(60,this);return false;"><span
+                                                    class="cke_button_icon cke_button__specialchar_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1896px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_40_label"
+                                                    class="cke_button_label cke_button__specialchar_label"
+                                                    aria-hidden="false">Insert Special Character</span><span
+                                                    id="cke_40_description" class="cke_button_label"
+                                                    aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_41"
+                                        class="cke_toolbar cke_toolbar_last" role="toolbar"><span
+                                            class="cke_toolbar_start"></span><span class="cke_toolgroup"
+                                            role="presentation"><a id="cke_42"
+                                                class="cke_button cke_button__source cke_button_off"
+                                                href="javascript:void('Source')" title="Source" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_42_label"
+                                                aria-describedby="cke_42_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(61,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(62,event);"
+                                                onclick="CKEDITOR.tools.callFunction(63,this);return false;"><span
+                                                    class="cke_button_icon cke_button__source_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1872px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_42_label" class="cke_button_label cke_button__source_label"
+                                                    aria-hidden="false">Source</span><span id="cke_42_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span></span></span>
+                            <div id="cke_1_contents" class="cke_contents cke_reset" role="presentation"
+                                style="height: 291px;"><span id="cke_47" class="cke_voice_label">Press ALT 0 for
+                                    help</span><iframe src="" frameborder="0" class="cke_wysiwyg_frame cke_reset"
+                                    style="width: 100%; height: 100%;" title="Rich Text Editor, id_about_info"
+                                    aria-describedby="cke_47" tabindex="0" allowtransparency="true"></iframe></div><span
+                                id="cke_1_bottom" class="cke_bottom cke_reset_all" role="presentation"
+                                style="user-select: none;"><span id="cke_1_resizer"
+                                    class="cke_resizer cke_resizer_vertical cke_resizer_ltr" title="Resize"
+                                    onmousedown="CKEDITOR.tools.callFunction(2, event)">◢</span><span
+                                    id="cke_1_path_label" class="cke_voice_label">Elements path</span><span
+                                    id="cke_1_path" class="cke_path" role="group"
+                                    aria-labelledby="cke_1_path_label"><span
+                                        class="cke_path_empty">&nbsp;</span></span></span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-contact_email">
+
+
+            <div>
+
+
+                <label for="id_contact_email">Contact email:</label>
+
+                <input type="text" name="contact_email" value="info@tlouesports.com" class="vTextField" maxlength="128"
+                    id="id_contact_email">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-contact_info">
+
+
+            <div>
+
+
+                <label for="id_contact_info">Contact info:</label>
+
+                <div class="django-ckeditor-widget" data-field-id="id_contact_info" style="display: inline-block;">
+                    <textarea cols="40" id="id_contact_info" name="contact_info" rows="10" data-processed="1"
+                        data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;Full&quot;, &quot;height&quot;: 291, &quot;width&quot;: 835, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;en-us&quot;}"
+                        data-external-plugin-resources="[]" data-id="id_contact_info" data-type="ckeditortype"
+                        style="visibility: hidden; display: none;">This is out Contact Info</textarea>
+                    <div id="cke_id_contact_info"
+                        class="cke_2 cke cke_reset cke_chrome cke_editor_id_contact_info cke_ltr cke_browser_webkit"
+                        dir="ltr" lang="en" role="application" aria-labelledby="cke_id_contact_info_arialbl"
+                        style="width: 835px;"><span id="cke_id_contact_info_arialbl" class="cke_voice_label">Rich Text
+                            Editor, id_contact_info</span>
+                        <div class="cke_inner cke_reset" role="presentation"><span id="cke_2_top"
+                                class="cke_top cke_reset_all" role="presentation"
+                                style="height: auto; user-select: none;"><span id="cke_59"
+                                    class="cke_voice_label">Editor toolbars</span><span id="cke_2_toolbox"
+                                    class="cke_toolbox" role="group" aria-labelledby="cke_59"
+                                    onmousedown="return false;"><span id="cke_62" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span id="cke_60"
+                                            class="cke_combo cke_combo__styles cke_combo_off" role="presentation"><span
+                                                id="cke_60_label" class="cke_combo_label">Styles</span><a
+                                                class="cke_combo_button" title="Formatting Styles" tabindex="-1"
+                                                href="javascript:void('Formatting Styles')" hidefocus="true"
+                                                role="button" aria-labelledby="cke_60_label" aria-haspopup="listbox"
+                                                onkeydown="return CKEDITOR.tools.callFunction(72,event,this);"
+                                                onfocus="return CKEDITOR.tools.callFunction(73,event);"
+                                                onclick="CKEDITOR.tools.callFunction(71,this);return false;"
+                                                aria-expanded="false"><span id="cke_60_text"
+                                                    class="cke_combo_text cke_combo_inlinelabel">Styles</span><span
+                                                    class="cke_combo_open"><span
+                                                        class="cke_combo_arrow"></span></span></a></span><span
+                                            id="cke_61" class="cke_combo cke_combo__format cke_combo_off"
+                                            role="presentation"><span id="cke_61_label"
+                                                class="cke_combo_label">Format</span><a class="cke_combo_button"
+                                                title="Paragraph Format" tabindex="-1"
+                                                href="javascript:void('Paragraph Format')" hidefocus="true"
+                                                role="button" aria-labelledby="cke_61_label" aria-haspopup="listbox"
+                                                onkeydown="return CKEDITOR.tools.callFunction(75,event,this);"
+                                                onfocus="return CKEDITOR.tools.callFunction(76,event);"
+                                                onclick="CKEDITOR.tools.callFunction(74,this);return false;"
+                                                aria-expanded="false"><span id="cke_61_text"
+                                                    class="cke_combo_text cke_combo_inlinelabel">Format</span><span
+                                                    class="cke_combo_open"><span
+                                                        class="cke_combo_arrow"></span></span></a></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_63"
+                                                class="cke_button cke_button__bold cke_button_off"
+                                                href="javascript:void('Bold')" title="Bold (Ctrl+B)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_63_label"
+                                                aria-describedby="cke_63_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(77,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(78,event);"
+                                                onclick="CKEDITOR.tools.callFunction(79,this);return false;"><span
+                                                    class="cke_button_icon cke_button__bold_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -24px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_63_label" class="cke_button_label cke_button__bold_label"
+                                                    aria-hidden="false">Bold</span><span id="cke_63_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+B</span></a><a id="cke_64"
+                                                class="cke_button cke_button__italic cke_button_off"
+                                                href="javascript:void('Italic')" title="Italic (Ctrl+I)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_64_label"
+                                                aria-describedby="cke_64_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(80,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(81,event);"
+                                                onclick="CKEDITOR.tools.callFunction(82,this);return false;"><span
+                                                    class="cke_button_icon cke_button__italic_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -48px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_64_label" class="cke_button_label cke_button__italic_label"
+                                                    aria-hidden="false">Italic</span><span id="cke_64_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+I</span></a><a id="cke_65"
+                                                class="cke_button cke_button__underline cke_button_off"
+                                                href="javascript:void('Underline')" title="Underline (Ctrl+U)"
+                                                tabindex="-1" hidefocus="true" role="button"
+                                                aria-labelledby="cke_65_label" aria-describedby="cke_65_description"
+                                                aria-haspopup="false" aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(83,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(84,event);"
+                                                onclick="CKEDITOR.tools.callFunction(85,this);return false;"><span
+                                                    class="cke_button_icon cke_button__underline_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -144px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_65_label"
+                                                    class="cke_button_label cke_button__underline_label"
+                                                    aria-hidden="false">Underline</span><span id="cke_65_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+U</span></a><a id="cke_66"
+                                                class="cke_button cke_button__strike cke_button_off"
+                                                href="javascript:void('Strikethrough')" title="Strikethrough"
+                                                tabindex="-1" hidefocus="true" role="button"
+                                                aria-labelledby="cke_66_label" aria-describedby="cke_66_description"
+                                                aria-haspopup="false" aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(86,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(87,event);"
+                                                onclick="CKEDITOR.tools.callFunction(88,this);return false;"><span
+                                                    class="cke_button_icon cke_button__strike_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -72px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_66_label" class="cke_button_label cke_button__strike_label"
+                                                    aria-hidden="false">Strikethrough</span><span
+                                                    id="cke_66_description" class="cke_button_label"
+                                                    aria-hidden="false"></span></a><a id="cke_67"
+                                                class="cke_button cke_button__undo cke_button_disabled "
+                                                href="javascript:void('Undo')" title="Undo (Ctrl+Z)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_67_label"
+                                                aria-describedby="cke_67_description" aria-haspopup="false"
+                                                aria-disabled="true"
+                                                onkeydown="return CKEDITOR.tools.callFunction(89,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(90,event);"
+                                                onclick="CKEDITOR.tools.callFunction(91,this);return false;"><span
+                                                    class="cke_button_icon cke_button__undo_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -2040px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_67_label" class="cke_button_label cke_button__undo_label"
+                                                    aria-hidden="false">Undo</span><span id="cke_67_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+Z</span></a><a id="cke_68"
+                                                class="cke_button cke_button__redo cke_button_disabled "
+                                                href="javascript:void('Redo')" title="Redo (Ctrl+Y)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_68_label"
+                                                aria-describedby="cke_68_description" aria-haspopup="false"
+                                                aria-disabled="true"
+                                                onkeydown="return CKEDITOR.tools.callFunction(92,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(93,event);"
+                                                onclick="CKEDITOR.tools.callFunction(94,this);return false;"><span
+                                                    class="cke_button_icon cke_button__redo_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1992px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_68_label" class="cke_button_label cke_button__redo_label"
+                                                    aria-hidden="false">Redo</span><span id="cke_68_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+Y</span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_69" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_70"
+                                                class="cke_button cke_button__link cke_button_off"
+                                                href="javascript:void('Link')" title="Link (Ctrl+K)" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_70_label"
+                                                aria-describedby="cke_70_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(95,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(96,event);"
+                                                onclick="CKEDITOR.tools.callFunction(97,this);return false;"><span
+                                                    class="cke_button_icon cke_button__link_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1296px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_70_label" class="cke_button_label cke_button__link_label"
+                                                    aria-hidden="false">Link</span><span id="cke_70_description"
+                                                    class="cke_button_label" aria-hidden="false">&nbsp;Keyboard shortcut
+                                                    Ctrl+K</span></a><a id="cke_71"
+                                                class="cke_button cke_button__unlink cke_button_disabled "
+                                                href="javascript:void('Unlink')" title="Unlink" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_71_label"
+                                                aria-describedby="cke_71_description" aria-haspopup="false"
+                                                aria-disabled="true"
+                                                onkeydown="return CKEDITOR.tools.callFunction(98,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(99,event);"
+                                                onclick="CKEDITOR.tools.callFunction(100,this);return false;"><span
+                                                    class="cke_button_icon cke_button__unlink_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1320px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_71_label" class="cke_button_label cke_button__unlink_label"
+                                                    aria-hidden="false">Unlink</span><span id="cke_71_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_72" class="cke_button cke_button__anchor cke_button_off"
+                                                href="javascript:void('Anchor')" title="Anchor" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_72_label"
+                                                aria-describedby="cke_72_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(101,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(102,event);"
+                                                onclick="CKEDITOR.tools.callFunction(103,this);return false;"><span
+                                                    class="cke_button_icon cke_button__anchor_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1272px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_72_label" class="cke_button_label cke_button__anchor_label"
+                                                    aria-hidden="false">Anchor</span><span id="cke_72_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_73" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_74"
+                                                class="cke_button cke_button__image cke_button_off"
+                                                href="javascript:void('Image')" title="Image" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_74_label"
+                                                aria-describedby="cke_74_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(104,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(105,event);"
+                                                onclick="CKEDITOR.tools.callFunction(106,this);return false;"><span
+                                                    class="cke_button_icon cke_button__image_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -984px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_74_label" class="cke_button_label cke_button__image_label"
+                                                    aria-hidden="false">Image</span><span id="cke_74_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_75" class="cke_button cke_button__flash cke_button_off"
+                                                href="javascript:void('Flash')" title="Flash" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_75_label"
+                                                aria-describedby="cke_75_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(107,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(108,event);"
+                                                onclick="CKEDITOR.tools.callFunction(109,this);return false;"><span
+                                                    class="cke_button_icon cke_button__flash_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -624px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_75_label" class="cke_button_label cke_button__flash_label"
+                                                    aria-hidden="false">Flash</span><span id="cke_75_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_76" class="cke_button cke_button__table cke_button_off"
+                                                href="javascript:void('Table')" title="Table" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_76_label"
+                                                aria-describedby="cke_76_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(110,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(111,event);"
+                                                onclick="CKEDITOR.tools.callFunction(112,this);return false;"><span
+                                                    class="cke_button_icon cke_button__table_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1944px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_76_label" class="cke_button_label cke_button__table_label"
+                                                    aria-hidden="false">Table</span><span id="cke_76_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_77" class="cke_button cke_button__horizontalrule cke_button_off"
+                                                href="javascript:void('Insert Horizontal Line')"
+                                                title="Insert Horizontal Line" tabindex="-1" hidefocus="true"
+                                                role="button" aria-labelledby="cke_77_label"
+                                                aria-describedby="cke_77_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(113,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(114,event);"
+                                                onclick="CKEDITOR.tools.callFunction(115,this);return false;"><span
+                                                    class="cke_button_icon cke_button__horizontalrule_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -936px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_77_label"
+                                                    class="cke_button_label cke_button__horizontalrule_label"
+                                                    aria-hidden="false">Insert Horizontal Line</span><span
+                                                    id="cke_77_description" class="cke_button_label"
+                                                    aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_78" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_79"
+                                                class="cke_button cke_button__textcolor cke_button_expandable cke_button_off"
+                                                href="javascript:void('Text Color')" title="Text Color" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_79_label"
+                                                aria-describedby="cke_79_description" aria-haspopup="listbox"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(116,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(117,event);"
+                                                onclick="CKEDITOR.tools.callFunction(118,this);return false;"
+                                                aria-expanded="false"><span
+                                                    class="cke_button_icon cke_button__textcolor_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -408px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_79_label"
+                                                    class="cke_button_label cke_button__textcolor_label"
+                                                    aria-hidden="false">Text Color</span><span id="cke_79_description"
+                                                    class="cke_button_label" aria-hidden="false"></span><span
+                                                    class="cke_button_arrow"></span></a><a id="cke_80"
+                                                class="cke_button cke_button__bgcolor cke_button_expandable cke_button_off"
+                                                href="javascript:void('Background Color')" title="Background Color"
+                                                tabindex="-1" hidefocus="true" role="button"
+                                                aria-labelledby="cke_80_label" aria-describedby="cke_80_description"
+                                                aria-haspopup="listbox" aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(119,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(120,event);"
+                                                onclick="CKEDITOR.tools.callFunction(121,this);return false;"
+                                                aria-expanded="false"><span
+                                                    class="cke_button_icon cke_button__bgcolor_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -384px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_80_label" class="cke_button_label cke_button__bgcolor_label"
+                                                    aria-hidden="false">Background Color</span><span
+                                                    id="cke_80_description" class="cke_button_label"
+                                                    aria-hidden="false"></span><span
+                                                    class="cke_button_arrow"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_81" class="cke_toolbar"
+                                        role="toolbar"><span class="cke_toolbar_start"></span><span
+                                            class="cke_toolgroup" role="presentation"><a id="cke_82"
+                                                class="cke_button cke_button__smiley cke_button_off"
+                                                href="javascript:void('Smiley')" title="Smiley" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_82_label"
+                                                aria-describedby="cke_82_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(122,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(123,event);"
+                                                onclick="CKEDITOR.tools.callFunction(124,this);return false;"><span
+                                                    class="cke_button_icon cke_button__smiley_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1104px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_82_label" class="cke_button_label cke_button__smiley_label"
+                                                    aria-hidden="false">Smiley</span><span id="cke_82_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a><a
+                                                id="cke_83" class="cke_button cke_button__specialchar cke_button_off"
+                                                href="javascript:void('Insert Special Character')"
+                                                title="Insert Special Character" tabindex="-1" hidefocus="true"
+                                                role="button" aria-labelledby="cke_83_label"
+                                                aria-describedby="cke_83_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(125,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(126,event);"
+                                                onclick="CKEDITOR.tools.callFunction(127,this);return false;"><span
+                                                    class="cke_button_icon cke_button__specialchar_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1896px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_83_label"
+                                                    class="cke_button_label cke_button__specialchar_label"
+                                                    aria-hidden="false">Insert Special Character</span><span
+                                                    id="cke_83_description" class="cke_button_label"
+                                                    aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span><span id="cke_84"
+                                        class="cke_toolbar cke_toolbar_last" role="toolbar"><span
+                                            class="cke_toolbar_start"></span><span class="cke_toolgroup"
+                                            role="presentation"><a id="cke_85"
+                                                class="cke_button cke_button__source cke_button_off"
+                                                href="javascript:void('Source')" title="Source" tabindex="-1"
+                                                hidefocus="true" role="button" aria-labelledby="cke_85_label"
+                                                aria-describedby="cke_85_description" aria-haspopup="false"
+                                                aria-disabled="false"
+                                                onkeydown="return CKEDITOR.tools.callFunction(128,event);"
+                                                onfocus="return CKEDITOR.tools.callFunction(129,event);"
+                                                onclick="CKEDITOR.tools.callFunction(130,this);return false;"><span
+                                                    class="cke_button_icon cke_button__source_icon"
+                                                    style="background-image:url('http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/icons.png?t=L4KA');background-position:0 -1872px;background-size:auto;">&nbsp;</span><span
+                                                    id="cke_85_label" class="cke_button_label cke_button__source_label"
+                                                    aria-hidden="false">Source</span><span id="cke_85_description"
+                                                    class="cke_button_label" aria-hidden="false"></span></a></span><span
+                                            class="cke_toolbar_end"></span></span></span></span>
+                            <div id="cke_2_contents" class="cke_contents cke_reset" role="presentation"
+                                style="height: 291px;"><span id="cke_89" class="cke_voice_label">Press ALT 0 for
+                                    help</span><iframe src="" frameborder="0" class="cke_wysiwyg_frame cke_reset"
+                                    style="width: 100%; height: 100%;" title="Rich Text Editor, id_contact_info"
+                                    aria-describedby="cke_89" tabindex="0" allowtransparency="true"></iframe></div><span
+                                id="cke_2_bottom" class="cke_bottom cke_reset_all" role="presentation"
+                                style="user-select: none;"><span id="cke_2_resizer"
+                                    class="cke_resizer cke_resizer_vertical cke_resizer_ltr" title="Resize"
+                                    onmousedown="CKEDITOR.tools.callFunction(69, event)">◢</span><span
+                                    id="cke_2_path_label" class="cke_voice_label">Elements path</span><span
+                                    id="cke_2_path" class="cke_path" role="group"
+                                    aria-labelledby="cke_2_path_label"><span
+                                        class="cke_path_empty">&nbsp;</span></span></span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-winner_bool">
+
+
+            <div class="checkbox-row">
+
+
+                <input type="checkbox" name="winner_bool" id="id_winner_bool" checked=""><label class="vCheckboxLabel"
+                    for="id_winner_bool">Winner bool</label>
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-winner_list">
+
+
+            <div>
+
+
+                <label for="id_winner_list">Winner list:</label>
+
+                <input type="text" name="winner_list" value="&quot;Legend Killers&quot;, &quot;Silent Gamerz&quot;"
+                    class="vTextField" maxlength="500" id="id_winner_list">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-home_notice">
+
+
+            <div>
+
+
+                <label for="id_home_notice">Home notice:</label>
+
+                <input type="text" name="home_notice" class="vTextField" maxlength="500" id="id_home_notice">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-home_video_heading">
+
+
+            <div>
+
+
+                <label for="id_home_video_heading">Home video heading:</label>
+
+                <input type="text" name="home_video_heading" value="The Last of Us - Video Trailer" class="vTextField"
+                    maxlength="500" id="id_home_video_heading">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-home_video">
+
+
+            <div>
+
+
+                <label for="id_home_video">Home video:</label>
+
+                <input type="text" name="home_video" value="https://www.youtube.com/embed/W01L70IGBgE"
+                    class="vTextField" maxlength="500" id="id_home_video">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-about_banner">
+
+
+            <div>
+
+
+                <label for="id_about_banner">About banner:</label>
+
+                <input type="file" name="about_banner" accept="image/*" id="id_about_banner">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-contact_banner">
+
+
+            <div>
+
+
+                <label for="id_contact_banner">Contact banner:</label>
+
+                <p class="file-upload">Currently: <a
+                        href="/media/Banner/match-start-img_uhKKsFu.png">media/Banner/match-start-img_uhKKsFu.png</a>
+                    <span class="clearable-file-input">
+                        <input type="checkbox" name="contact_banner-clear" id="contact_banner-clear_id">
+                        <label for="contact_banner-clear_id">Clear</label></span><br>
+                    Change:
+                    <input type="file" name="contact_banner" accept="image/*" id="id_contact_banner"></p>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-game_banner">
+
+
+            <div>
+
+
+                <label for="id_game_banner">Game banner:</label>
+
+                <p class="file-upload">Currently: <a href="/media/Banner/img-03_003.jpg">media/Banner/img-03_003.jpg</a>
+                    <span class="clearable-file-input">
+                        <input type="checkbox" name="game_banner-clear" id="game_banner-clear_id">
+                        <label for="game_banner-clear_id">Clear</label></span><br>
+                    Change:
+                    <input type="file" name="game_banner" accept="image/*" id="id_game_banner"></p>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-ladder_banner">
+
+
+            <div>
+
+
+                <label for="id_ladder_banner">Ladder banner:</label>
+
+                <input type="file" name="ladder_banner" accept="image/*" id="id_ladder_banner">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-second_ladder_banner">
+
+
+            <div>
+
+
+                <label for="id_second_ladder_banner">Second ladder banner:</label>
+
+                <p class="file-upload">Currently: <a
+                        href="/media/Banner/img-03_003_028kqWs.jpg">media/Banner/img-03_003_028kqWs.jpg</a>
+                    <span class="clearable-file-input">
+                        <input type="checkbox" name="second_ladder_banner-clear" id="second_ladder_banner-clear_id">
+                        <label for="second_ladder_banner-clear_id">Clear</label></span><br>
+                    Change:
+                    <input type="file" name="second_ladder_banner" accept="image/*" id="id_second_ladder_banner"></p>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-team_background_banner">
+
+
+            <div>
+
+
+                <label for="id_team_background_banner">Team background banner:</label>
+
+                <p class="file-upload">Currently: <a href="/media/Banner/tlou.jpg">media/Banner/tlou.jpg</a>
+                    <span class="clearable-file-input">
+                        <input type="checkbox" name="team_background_banner-clear" id="team_background_banner-clear_id">
+                        <label for="team_background_banner-clear_id">Clear</label></span><br>
+                    Change:
+                    <input type="file" name="team_background_banner" accept="image/*" id="id_team_background_banner">
+                </p>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="form-row field-access_name">
+
+
+            <div>
+
+
+                <label for="id_access_name">Access name:</label>
+
+                <input type="text" name="access_name" value="admin" class="vTextField" maxlength="128"
+                    id="id_access_name">
+
+
+
+            </div>
+
+        </div>
+
+    </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="submit-row">
+
+        <input type="submit" value="Save" class="default" name="_save">
+
+
+        <p class="deletelink-box"><a href="/admintlou/adminoptions/1/delete/" class="deletelink">Delete</a></p>
+
+
+        <input type="submit" value="Save and add another" name="_addanother">
+        <input type="submit" value="Save and continue editing" name="_continue">
+
+
+    </div>
+
+
+
+    <script id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" async="">
+    </script>
+
+
+
+
+    <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js"
+        data-prepopulated-fields="[]">
+    </script>
+
+
+</div>
+{% endblock %}

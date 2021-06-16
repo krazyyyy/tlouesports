@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Contact Us {% endblock %}
+
+{% block body %}
+{% if options.contact_banner %}
+<div class="inner-page-banner" style="background-image: url('{{ options.contact_banner.url }}');">
+{% else%}
+   <div class="inner-page-banner" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/738/436/859/naughty-dog-the-last-of-us-part-ii-playstation-ellie-ashley-johnson-hd-wallpaper-preview.jpg');">
+{% endif %}         
+<div class="container">
+            </div>
+         </div>
+         <div class="inner-information-text">
+            <div class="container">
+               <h3 style="color: black;">Contact</h3>
+               <ul class="breadcrumb">
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li class="{% url 'contact' %}">Contact</li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <section id="contant" class="contant main-heading team">
+         <div class="row">
+            <div class="container">
+               <div class="contact">
+                  <div class="col-md-6">
+                     <div class="contact-info">
+                        <div class="kode-section-title">
+                           <h3>Contact Info</h3>
+                           <p>{{ options.contact_info | safe }}</p>
+                        </div>
+                        <div class="kode-forminfo">
+                           <ul>
+                              <li>
+                                 <i class="fa fa-envelope-o"></i> 
+                                 <p><strong>Email:</strong> {{ options.contact_email }}</p>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="contact-us">
+                        <form method="POST" action="{% url 'sendmessage' %}" >
+                           {% csrf_token %}
+                           <ul>
+                              {%if request.user.is_anonymous %}
+                              
+                              <li><input type="text" required id="name" name="name" class="required" placeholder="Name *"></li>
+                              {% else %}
+                              <li><input type="email" id="name"   class="required" placeholder="{{ request.user }}" disabled></li>
+                              <li><input type="hidden"   name="name" value="{{ request.user }}"></li>
+                              {% endif %}
+                              <li><input type="text" required id="email" name="email" class="required email" placeholder="Email *"></li>
+                              <li><textarea required name="message" placeholder="Add your message"></textarea></li>
+                              <li><input class="thbg-color" type="submit" value="Send"></li>
+                           </ul>
+                           
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      {% endblock %}

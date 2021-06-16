@@ -1,0 +1,343 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<style>
+    
+
+.inverted {
+  background-color: #28556f !important;
+}
+
+.container {
+    margin: 25px 0;
+}
+
+.container h1 {
+    font-weight: bolder;
+}
+
+.menu {}
+
+.company-name {
+  font-weight: bold !important;
+  color: #212121;
+}
+
+.company-name:hover {
+  color: #212121;
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+.btn-info {
+    background-color: #ee3b13;
+    border-color: #ee3b13;
+}
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+th, td {
+    text-align: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.table[class*="center aligned"],
+  .ui.table [class*="center aligned"] {
+    text-align: left;
+  }
+}
+</style>
+<div class="main container">
+<div class="left floated column bottom aligned content">
+    <h1 class="ui header">Open Matches</h1>
+  </div>
+
+  <ul class="object-tools">
+          
+    <li>
+      
+      <a href="/admin/tlou/matches/add/" class="addlink">
+        Add matches
+      </a>
+    </li>         
+          </ul>
+    <div class="ui grid">
+      <div class="sixteen wide column ">
+        <table style="width: 100%;" class="ui celled table selectable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ladder</th>
+              <th>Team 1</th>
+              <th>Team 1 Report</th>
+              <th>Team 2</th>
+              <th>Team 2 Report</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for match in matches %}
+              {% if match.current_stats == "In-Progress" %}
+            <tr>
+              <td>{{ match.id }}</td>
+              <td>{{ match.match_ladder }}</td>
+              <td>{{ match.team_1 }}</td>
+              <td>
+                  {% if match.report_one_team.first.win_or_lose %}
+                  {{ match.report_one_team.first.win_or_lose }}
+                    {% else %}
+                    Waiting
+                    {% endif %}
+                </td>
+              <td class>
+                {{ match.team_2 }}
+              </td>
+              <td>{% if match.report_two_team.first.win_or_lose %}
+                  {{ match.report_two_team.first.win_or_lose }}
+                    {% else %}
+                    Waiting
+                {% endif %}
+                </td>
+              <td> <span class="badge badge-success">{{ match.current_stats }}</span> </td>
+              <td>
+             <div class="ui basic icon buttons">
+                    
+                </button>
+                
+                <a href="{% url 'adminwin1' match.id %}" class="ui button">
+                   Team 1   
+                </a>&nbsp;
+                <a href="{% url 'adminwin2' match.id %}" class="ui button">
+                   Team 2   
+                </a>&nbsp;
+                <a href="{% url 'admindel' match.id %}" class="ui button">
+                   Cancel
+                </a>
+      </div>
+      </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+
+<div class="main container">
+<div class="left floated column bottom aligned content">
+    <h1 class="ui header">Pending Matches</h1>
+  </div>
+
+
+    <div class="ui grid">
+      <div class="sixteen wide column ">
+        <table style="width: 100%;" class="ui celled table selectable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ladder</th>
+              <th>Team 1</th>
+              <th>Tine</th>
+        
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for match in matches %}
+            
+              {% if match.team_2 == None %}
+            <tr>
+              <td>{{ match.id }}</td>
+              <td>{{ match.match_ladder }}</td>
+              <td>{{ match.team_1 }}</td>
+              
+              <td>{{ match.time }}
+                </td>
+              <td> <span class="badge badge-success">Pending</span> </td>
+              <td>
+             <div class="ui basic icon buttons">
+                    
+                </button>
+                
+               
+                <a href="{% url 'admindel' match.id %}" class="ui button">
+                   Cancel
+                </a>
+      </div>
+      </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+<div class="main container">
+    <div class="left floated column bottom aligned content">
+        <h1 class="ui header">Disputed Match</h1>
+      </div>
+        <div class="ui grid">
+          <div class="sixteen wide column ">
+            <table style="width: 100%;" class="ui celled table selectable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Ladder</th>
+                  <th>Team 1</th>
+                  <th>Team 2</th>
+                  <th>Status</th>
+                  <th>Proof</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for match in matches %}
+                  {% if match.current_stats == "Disputed" %}
+                <tr>
+                  <td>{{ match.id }}</td>
+                  <td>{{ match.match_ladder }}</td>
+                  <td>{{ match.team_1 }}</td>
+              
+                  <td class>
+                    {{ match.team_2 }}
+                  </td>
+                  <td>
+    
+    
+                    <a style="color: #fff;" href="{% url 'proofs' match.id %}" class="btn btn-info btn-lg">
+                        <span class="glyphicon glyphicon-eye-open"></span> Proof
+                      </a>
+                  </td>
+                
+                  <td> <span class="badge badge-success">{{ match.current_stats }}</span> </td>
+                  <td>
+                 <div class="ui basic icon buttons">
+                        
+                    </button>
+                    
+                    <a href="{% url 'adminwin1' match.id %}" class="ui button">
+                       Team 1   
+                    </a>&nbsp;
+                    <a href="{% url 'adminwin2' match.id %}" class="ui button">
+                       Team 2   
+                    </a>&nbsp;
+                    <a href="{% url 'admindel' match.id %}" class="ui button">
+                       Cancel
+                    </a>
+          </div>
+          </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+    
+    
+    <div class="main container">
+        <div class="left floated column bottom aligned content">
+            <h1 class="ui header">Completed</h1>
+          </div>
+        
+          
+            <div class="ui grid">
+              <div class="sixteen wide column ">
+                <table style="width: 100%;" class="ui celled table selectable">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Ladder</th>
+                      <th>Team 1</th>
+                      
+                      <th>Team 2</th>
+                      <th>Winner</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for match in matches %}
+                      {% if match.current_stats == "Completed" %}
+                    <tr>
+                      <td>{{ match.id }}</td>
+                      <td>{{ match.match_ladder }}</td>
+                      <td>{{ match.team_1 }}</td>
+                     
+                      <td class>
+                        {{ match.team_2 }}
+                      </td>
+                      <td>{{ match.winner }}
+                        </td>
+                      <td> <span class="badge badge-success">{{ match.current_stats }}</span> </td>
+                      <td>
+                     <div class="ui basic icon buttons">
+                            
+                        </button>
+                        
+                        <a href="{% url 'revmat' match.id %}" class="ui button">
+                           Reverse    
+                        </a>&nbsp;
+                        
+                <a href="{% url 'admindel' match.id %}" class="ui button">
+                   Cancel
+                </a>
+                       
+              </div>
+              </td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+
+{% endblock %}

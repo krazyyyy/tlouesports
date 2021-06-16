@@ -1,0 +1,601 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ team }}- Team {% endblock %}
+
+{% load tz %}
+{% load static %}
+
+{% block body %}
+<style>
+
+
+</style>
+<div class="inner-page">
+    {% if options.team_background_banner %}
+    <div class="inner-header" style="background-image: url('{{ options.team_background_banner.url }}');">
+    </div>
+    {% else%}
+    <div class="inner-header" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/738/436/859/naughty-dog-the-last-of-us-part-ii-playstation-ellie-ashley-johnson-hd-wallpaper-preview.jpg');">
+    </div>
+    {% endif %}
+    <div class="inner-body">
+        <div class="team-roster">
+            <div class="section-header center-column col-white">
+               
+                
+                {% if founder %}
+                <div class="actions">
+                    <a href="{% url 'edit' team.id %}" class="btn-default">
+                        Edit Team
+                    </a>
+                </div>
+                <div class="actions">
+                    <a href="#" data-toggle="modal" data-target="#matchFinder" class="btn-default">
+                        Match Finder
+                    </a>
+                </div>
+                <div class="actions">
+                    <a href="#" data-toggle="modal" data-target="#createMatch" class="btn-default">
+                        Create Match </a>
+                
+                    </div>
+                    {% endif %}
+                    <div class="actions">
+                        {% if request.user.is_authenticated %}
+                        {% if team_member %}
+                        <a href="#" data-toggle="modal" data-target="#challenges" class="btn-default">
+                            Challenges </a>
+                        {% else %}
+                        <a href="#" data-toggle="modal" data-target="#createMatch" class="btn-default">
+                            Challenge </a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
+                
+            </div>
+        <article class="top">
+            <div class="col left about">
+                <figure>
+                    <img class="img-logo" src="{{ team.image.url }}"
+                        alt="{{ team.name }}">
+                </figure>
+                <div class="details">
+                    <h4>
+                        {{ team.name }} 
+                        {% if team.crown %}
+                        <i style="color: gold;" class="fas fa-crown"></i>
+                        {% endif %}  
+                        <i class="flag flag-au"></i>
+                    </h4>
+                    <p>
+                        Founded {{ team.founded_at }} </p>
+                </div>
+            </div>
+            <div>
+            <div class="col right">
+                <ul class="info-list">
+                    <li>
+                        <span class="title"><i class="fa fa-trophy"
+                            style="color: gold;"></i> : {{ team.gold_trophy }}</span>
+                        
+                    </li>
+                    <li>
+                        <span class="title"> <i class="fa fa-trophy"
+                            style="color: silver;"></i> : {{ team.silver_trophy }}</span>
+                        
+                    </li>
+                    <li>
+                        <span class="title"> 
+                            <i class="fa fa-trophy"
+                                                style="color: #cd7f32 ;"></i>
+                                            : {{ team.bronze_trophy }}
+                                                </span>
+                        
+                    </li>
+                </ul>
+
+                
+            </div>
+        </div>
+            <div id="win_lose_team" style="margin-left: auto;
+            margin-bottom: -10px;">
+            <div class="col right">
+                <ul class="info-list">
+                    <li>
+                        <span class="title"> Win</span>
+                        <span >{{ team.Win }} </span> 
+                        
+                    </li>
+                    <li>
+                        
+                        <span class="title">  Lose</span>
+                        <span >  {{ team.Lose }} </span> 
+                    </li>
+                    <li>
+                        <span class="title"> 
+                            Total
+                        </span>
+                        <span > 
+                            
+                            {{ team.total_matches }}
+                                                </span>
+                        
+                    </li>
+                </ul>
+
+            </div>
+            </div>
+            
+        </article>
+
+        <article class="bottom">
+            <div class="col-6 col-md-4 left textarea team-banner-side">
+                <div class="team-stats-area">
+                    {% if team.banner %}
+                    <div class="team-banner">
+                        <img src="{{ team.banner.url }}" alt="team-banner">
+                    </div>
+                    {% endif %}
+                    <div style=" color: #fff" class="team-stats">
+                        
+                            
+                        <div class="team-info">
+                            <div class="status">
+                                Crown Held 
+                            </div>
+                            <div class="status">
+                                {{ team.crown_held }}
+                            </div>
+                        
+                        </div>
+                     
+                        
+                        
+                        <div class="team-info">
+                            <div class="status">
+                                Longest Win Steak
+                            </div>
+                            <div class="status">
+                                {{ team.longest_streak }}
+                            </div>
+                        
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col right team-pg">
+
+                <div style="width: 100%;    max-height: 249px;
+            overflow: auto;">
+
+                    <div style="
+                border: 1px solid #fff;" class="tab">
+                        <button class="tablinks" onclick="openTab(event, 'resultTeam')"
+                            id="defaultOpen">Pending</button>
+                        <button class="tablinks" onclick="openTab(event, 'challengeRequest')">Completed</button>
+
+                    </div>
+
+                    <!-- Tab content -->
+                    <div id="resultTeam" class="tabcontent team-tabs">
+                        <div class="matches">
+
+                            <div style="color:#fff; justify-content:space-between;" class="team-info">
+                                <div class="name">
+
+
+                                </div>
+                            </div>
+
+                            <div style="color:#fff; justify-content:space-between;" class="team-info">
+                                <div class="name">
+                                    Match 
+                                </div>
+                                <div class="status-info">
+                                    Result
+                                </div>
+                            </div>
+                            {% for match in matches %}
+         
+
+                   
+                            {% if match.active_match and match.in_progress %} 
+                            {% if match.team_1 == team or match.team_2 == team   %}
+                            
+                            
+                            <div style="color:#fff; justify-content:space-between;" class="team-info">
+                                <div class="name">
+                                    <a href="{% url 'team' match.team_1.id %}">{{ match.team_1 }}</a> vs
+                                    <a href="{% url 'team' match.team_2.id %}">{{ match.team_2 }}</a> <a href="{% url 'challenge' match.id %}"><span class="fa fa-search"></span></a>
+                                </div>
+                                <div class="status-info">
+
+                                    {{ match.current_stats }}
+                                </div>
+                            </div>
+
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+
+                        <div id="challengeRequest" class="tabcontent team-tabs">
+                            <div style="color:#fff; justify-content:space-between;" class="team-info">
+                                <div class="name">
+
+
+                                </div>
+                            </div>
+
+                            <div style="color:#fff; justify-content:space-between;" class="team-info">
+                                <div class="name">
+                                    Match
+                                </div>
+                                <div class="status-info">
+                                    Result
+                                </div>
+                            </div>
+                            {% for match in matches %}
+
+
+
+
+                            {% if match.current_stats == "Completed" and match.team_1 == team or match.team_2 == team  %}
+                            <div style="color:#fff; justify-content:space-between;" class="team-info">
+                                <div class="name">
+                                    <a href="{% url 'team' match.team_1.id %}">{{ match.team_1 }}</a> vs
+                                    <a href="{% url 'team' match.team_2.id %}">{{ match.team_2 }}</a> <a href="{% url 'challenge' match.id %}"><span class="fa fa-search"></span></a>
+                                </div>
+                                <div class="status-info">
+
+                                    {% if match.winner == team.name %}
+                                        W {% if match.team_1 == team %}
+                                            <sup>{{ match.team_one_rating}}</sup>
+                                            {% endif %}
+                                            {% if match.team_2 == team %}
+                                        <sup>{{ match.team_two_rating}}</sup>
+                                            {% endif %}
+                                    {% else %}
+                                        L {% if match.team_1 == team %}
+                                    <sup>{{ match.team_one_rating}}</sup>
+                                        {% endif %}
+                                        {% if match.team_2 == team %}
+                                    <sup>{{ match.team_two_rating}}</sup>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+              
+    </div>
+    </article>
+    
+        <div class="tab-content">
+            <ul class="card-list secondary-list active">
+                <ul class="card-list">
+                    {% for member in members %}
+                    <li class="card">
+                        <figure>
+                            <img src="{{ member.member.userdtl.img_user.url }}"
+                                alt="Ultramenix">
+                        </figure>
+                        <div class="card-info">
+                            <span class="label black text-uppercase">{{ member.rank}}</span>
+                            <a href="{% url 'profile' member.member %}"><h4 class="title">{{ member.member.username }}</h4></a>
+                            <div class="social-media-sections">
+                                {% if member.member.userdtl.twitter != None %}
+                                <a href="{{member.member.userdtl.twitter}}"><i class="fab fa-twitter"></i></a>
+                                {% endif %}
+                                {% if member.member.userdtl.twitch != None %}
+                                <a href="{{member.member.userdtl.twitch}}"><i class="fab fa-twitch"></i></a>
+                                {% endif %}
+                                {% if member.member.userdtl.youtube != None %}
+                                <a href="{{member.member.userdtl.youtube}}"><i class="fab fa-youtube"></i></a>
+                                {% endif %}
+                                </div>
+
+                            <span class="subtitle"> <i class="fab fa-playstation"></i> {{ member.member.userdtl.psn }} </span>
+                            <img class="country_flag" src="{{ member.member.userdtl.flag }}" alt="{{ member.member.userdtl.country }}">
+                            {% if request.user.username == member.member.username %}
+                            {% if not member.is_leader %}
+                            <div>
+                                <a href="{% url 'leave' member.id %}" class="btn btn-default">Leave Team</a>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Invite Modal -->
+{% if team_member %}
+<div class="modal fade" id="invitePlayer" tabindex="-1" role="dialog" aria-labelledby="invitePlayer" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="loginModalTitle" style="float: left;">Invite Player to,
+                    {{ pteam }}
+                </h5>
+                <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method='post' action="{% url 'invite' %}">
+                    {% csrf_token %}
+
+
+
+                    <div class="form-group">
+                        <label for="member-1">Member-1</label>
+                        <select class="form-control" id="member{{forloop.counter}}" name="member1"
+                            placeholder="Member{{forloop.counter}}">
+                            <option value="" selected>Select From Users</option>
+                            {% for item in alluser %}
+                            <option value="{{ item.username }}">{{ item.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="teamname" value="{{ team.name }}">
+
+                    <button type="submit" class="btn btn-primary btn-block">Invite Player</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+
+<div class="modal fade" id="createMatch" tabindex="-1" role="modal" aria-labelledby="createMatch" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="loginModalTitle" style="float: left;">Create Match</h5>
+                <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% if team_member %}
+            <p> You are Creating Match with your Team <strong>{{ team }}</strong></p>
+            {% else %}
+            <p> You are Challenging <strong>{{ team }}</strong> for Match with your Team <strong>{{ team_2.0}}</strong>
+            </p>
+            {% endif %}
+           <div class="modal-body">
+            <form method='post' action="{% url 'postmatch' %}">
+                {% csrf_token %}
+                <label for="" id="warn-label" style="color :red; display: none; transition: .4s ease-in;"> You do
+                    not have enough player to play this game</label>
+                <div class="form-group">
+                    <label for="team-1"> > Team </label>
+                    <input type="" class="form-control" value="{{ team.name }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="Number of Player"> > Number of Player</label>
+                    <select required aria-placeholder="Select Player" class="form-control" id="playerNo"
+                        name="players">
+                        <option selected value="">Select Players Limit</option>
+                        <option value="3v3">3v3</option>
+                        <option value="4v4">4v4</option>
+                        <option value="5v5">5v5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="best"> > Best of *</label>
+                    <select class="form-control" name="best">
+                        <option selected value="Best of 1">Best of 1</option>
+                        <option value="Best of 3">Best of 3</option>
+                        <option value="Best of 5">Best of 5</option>
+                    </select>
+                    <input type="hidden" name="ladder_id" value="{{ team.ladder.id }}">
+                    {% if team_member %}
+                    <input type="hidden" name="team-1" value="{{ team }}">
+                    {% else %}
+                    <input type="hidden" name="team-1-id" value="{{ team.id }}">
+                    <input type="hidden" name="team-2" value="{{ team_2.0 }}">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="time" name="datetime" required>
+                </div>
+                <div style="justify-content: space-evenly; text-align:center" class="team-info select-player">
+
+                    {% if team_member %}
+                    <div class="form-group" id="member-gen">
+
+                        <input type="hidden" name="member-count" value="{{ members.count}}">
+                        <div class="team-info">
+                            {% for member in members %}
+                            <div style="margin:15px;" class="name">
+                                <img style=" width: 50px;
+                                 height: 50px;"
+                                    src="{{ member.member.userdtl.img_user.url }}"
+                                    alt="">
+                                <p>{{ member.member }}</p>
+                                <input type="checkbox" value="{{member.id}}" name="member-{{ forloop.counter }}">
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <div class="form-group" id="member-challenger">
+
+                        <div class="team-info">
+                            <input type="hidden" name="member-count" value="{{ challenger.count}}">
+                            {% for member in challenger %}
+
+                            <div style="margin:15px;" class="name">
+                                <img style=" width: 50px;
+                                        height: 50px;"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnI43rT1772r2qq8iKTO42izF8afB7JP9GRw&usqp=CAU"
+                                    alt="">
+                                <p>{{ member.member }}</p>
+                                <input type="checkbox" value="{{member.id}}" name="member-{{ forloop.counter }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Post</button>
+
+            </form>
+           </div>
+            <div class="modal-footer">
+                <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Match Finder Modal -->
+<div class="modal fade" id="matchFinder" tabindex="-1" role="modal" aria-labelledby="matchFinder" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="loginModalTitle">Match Finder</h5>
+                <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="team-info">
+                    <div class="time" style="width: 33%;">
+                        Time
+                    </div>
+                    <div class="games">
+                        Game
+                    </div>
+                    <div class="actions">
+                        Action
+                    </div>
+                </div>
+                {% for match in matches %}
+                
+                {% if match.is_expired %}
+                {% if match.public %}
+                {% if match.team_1 == team %}
+                <div class="match-team-heading">
+                    Your Matches 
+                </div>
+                {% endif %}
+                <div class="team-info">
+                    <div class="time">
+                        {{ match.convert_time }}
+                        
+                        
+                    </div>
+                    <div class="games">
+                        {{ match.match_type }}
+                    </div>
+                    <div class="actions">
+
+                        {% if match.team_1 == team %}
+                        <a href="{% url 'cancel' match.id %}"><button style="border: none;
+                            width: 25px;
+                            border-radius: 5px;
+        " type="button" class="btn-labeled btn-danger">
+                                <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span></button> </a>
+                        {% else %}
+                        <a href="{% url 'accept' match.id team.id %}"><button style="border: none;
+                        width: 25px;
+                        border-radius: 5px;
+                        " type="button" class="btn-labeled btn-success">
+                                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span></button> </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+            </div>
+        </div>
+    </div>
+</div>
+{% if team_member %}
+<div class="modal fade" id="challenges" tabindex="-1" role="modal" aria-labelledby="challenges" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="loginModalTitle">Challenges</h5>
+                <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="team-info">
+                    <div class="time" style="width: 33%;">
+                        Time
+                    </div>
+                    <div class="games">
+                        Game
+                    </div>
+                    <div class="actions">
+                        Action
+                    </div>
+                </div>
+                {% for match in team.match_request.all %}
+                <div class="team-info">
+                    <div class="time">
+                        {{ match.convert_time }}
+                    </div>
+                    <div class="games">
+                        {{ match.match_type }}
+                    </div>
+                    <div class="actions">
+
+                        <a href="{% url 'accept' match.id team.id %}"><button style="border: none;
+                        width: 25px;
+                        border-radius: 5px;
+                        " type="button" class="btn-labeled btn-success">
+                                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span></button> </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div> No Challenge yet.</div>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+</div>
+
+</div>
+
+
+{% endblock %}

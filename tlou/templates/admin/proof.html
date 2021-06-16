@@ -1,0 +1,53 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="proofs">
+        <div class="proof-team-1">
+            <div class="heading-proof">
+                <h1>{{ match.team_1 }}'s Proof</h1>
+            </div>
+            <div class="proofs">
+                {% if proof_1 != None and proof_1.msg != None %}
+                <ul>
+                    <li>{{ proof_1.proof_1 }}</li>
+                    <li>{{ proof_1.proof_2 }}</li>
+                    <li>{{ proof_1.proof_3}}</li>
+                </ul>
+                <p>{{ proof_1.msg }}</p>
+                {% else %}
+                <h2>No Proof Provided</h2>
+                {% endif %}
+            </div>
+        <div class="proof-team-1">
+            <div class="heading-proof">
+                <h1>{{ match.team_2 }}'s Proof</h1>
+            </div>
+            <div class="proofs">
+                {% if proof_2 != None and proof_2.msg != None %}
+                <ul>
+                    <li>{{ proof_2.proof_1 }}</li>
+                    <li>{{ proof_2.proof_2 }}</li>
+                    <li>{{ proof_2.proof_3}}</li>
+                </ul>
+                <p>{{ proof_2.msg }}</p>
+                {% else %}
+                <h2>No Proof Provided</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div style="    margin: 24px 0;
+background: lightgray;" class="submit-row">
+
+    
+        
+        <a style="float: left;" href="/admin/tlou/matches" class="button">Back</a>
+    
+    
+
+    
+    </div>
+
+{% endblock %}

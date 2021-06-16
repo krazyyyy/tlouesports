@@ -1,0 +1,1 @@
+web: gunicorn tlouesports.wsgi --log-file -

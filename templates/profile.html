@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} {{ user.username }} - Profile {% endblock %}
+
+{% block body %}
+         <div class="inner-page-banner" style="background-image: url('/{{image.0.image}}');">
+            <div class="container">
+            </div>
+         </div>
+         <div class="inner-information-text">
+            <div class="container">
+               <h3>{{user.first_name}} {{user.last_name}}</h3>
+               <ul class="breadcrumb">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="#">Profile</a></li>
+                  <li class="active">{{user.first_name}} {{user.last_name}}</li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <section id="contant" class="contant main-heading team">
+        <div class="container">
+            <div class="main-body">
+              <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex flex-column align-items-center text-center">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                          width="150">
+                        <div class="mt-3">
+                          <h4>{{user.first_name}} {{user.last_name}}</h4>
+                          <h3>{{request.user.email}}</h3>
+                        </div>
+      
+                        <div class="pt-4">
+                          <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse"
+                            href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Change Password
+                            <span><i class="fas fa-key pt-1"></i></span>
+                          </a>
+                          <div class="collapse" id="collapseExample">
+                            <div class="mt-3">
+                              <div class="md-form md-outline mb-0">
+                                <input type="text" id="oldPassword" class="form-control font-weight-light"
+                                  placeholder="Enter Old Password">
+                              </div>
+                            </div>
+                            <div class="mt-3">
+                              <div class="md-form md-outline mb-0">
+                                <input type="text" id="password" class="form-control font-weight-light"
+                                  placeholder="Enter New password">
+                              </div>
+                            </div>
+                            <div class="mt-3">
+                              <div class="md-form md-outline mb-0">
+                                <input type="text" id="password1" class="form-control font-weight-light"
+                                  placeholder="Enter New Password">
+                              </div>
+                            </div><hr>
+                            <button class="btn submit_btn" onclick="ChangePassword()" style="margin: 15px; margin-top: 0px; cursor: pointer;">Update My
+                              Password </button>
+                          </div>
+                        </div>
+      
+                      </div>
+                    </div>
+                  </div>
+      
+      
+                  <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <a href="/"><span class="text-secondary">My Games</span></a>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <a href="javascript:void(0)"><span class="text-secondary tablinks" onclick="openTab(event, 'profileDetail')" id="defaultOpen" >Home</span></a>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <a href="javascript:void(0)"><span class="text-secondary tablinks">Messages</span></a>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <a href="javascript:void(0)"><span class="text-secondary tablinks" onclick="openTab(event, 'notification')">Notifications {{ user.userdtl.invitation.count }}</span></a>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <a href="/logout"><span class="text-secondary">LogOut</span></a>
+                      </li>
+      
+                    </ul>
+                  </div>
+                </div>
+      
+                <div class="col-md-8">
+                  <div class="card mb-3">
+                    <div id="notification" class="tabcontent">
+                      
+                      {% for invite in user.userdtl.invitation.all %} 
+                      
+                        <div class="notice success"><p style="float: unset;"> You have been Invited to {{ invite.name }}, for {{ invite.ladder }}
+                          <a href="{% url 'accept' invite.name %}"><button style="border: none;
+                                          width: 25px;
+                                          border-radius: 5px;
+                      " type="button" class="btn-labeled btn-success">
+                            <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span></button> </a>
+                          <a href="{% url 'deny' invite.id %}"><button style="border: none;
+                                          width: 25px;
+                                          border-radius: 5px;
+                      " type="button" class="btn-labeled btn-danger">
+                            <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span></button> </a>
+                        </p></div>
+                        {% empty %}
+                        No Notifications 
+                      {% endfor%}
+                      </div>
+
+                    <div id="profileDetail" class="card-body tabcontent">
+      
+                      <form action="{% url 'update' %}" method="POST">
+                        {% csrf_token %}
+                      <div class="row">
+                        
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <input name="fname" type="" id="name" value="{{user.first_name}}">
+                        </div>
+      
+                      </div>
+      
+                      <hr>
+      
+                      <div class="row">
+      
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Last Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <input name="lname" type="" id="last" value="{{user.last_name}}">
+                        </div>
+      
+                      </div>
+      
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <input name="email" type="" id="email" value="{{user.email}}">
+                        </div>
+                      </div>
+                      <hr>
+                      
+      
+                     
+      
+                    
+                     
+                      
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Twitter Link</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <input name="twitter" type="" id="add2" value="{{user.userdtl.twitter}}">
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Twitch Link</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <input name="twitch" type="" id="add2" value="{{user.userdtl.twitch}}">
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Youtube Channel Link</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <input name="youtube" type="" id="add2" value="{{user.userdtl.youtube}}">
+                        </div>
+                      </div>
+      
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Country</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          <select name="country" aria-placeholder="{{ user.userdtl.country }}">
+                            <option selected >{{ user.userdtl.country }}</option>
+                            {% for country in countries %}
+
+                                  <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+      
+                      <hr>
+                    <div class="row">
+                  <button  type="submit" class="btn submit_btn">
+                    Update My Profile
+                  </button>
+                </div>
+                  <hr>
+
+                </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+      
+      </section>
+      {% endblock %}

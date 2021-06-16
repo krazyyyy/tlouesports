@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} About Us {% endblock %}
+
+{% block body %}
+{% if options.news_banner %}
+<div class="inner-page-banner" style="background-image: url('{{ options.news_banner.url }}');">
+{% else%}
+   <div class="inner-page-banner" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/738/436/859/naughty-dog-the-last-of-us-part-ii-playstation-ellie-ashley-johnson-hd-wallpaper-preview.jpg');">
+{% endif %}   <div class="container">
+            </div>
+         </div>
+         <div class="inner-information-text">
+            <div class="container">
+               <h3>About Us</h3>
+               <ul class="breadcrumb">
+                  <li class="active">About Us</li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      {% if news.0 != None %}
+      <section class="blog-section spad">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-8">
+               <div class="blog-post featured-post">
+						<img src="{{ news.0.image.url }}" alt="">
+
+						<div class="post-date">{{ news.0.time | date:'F d, Y'}}</div>
+						<h3>{{ news.0.title }}</h3>
+						
+						<p>{{ news.0.Description|truncatechars:290|safe }} </p>
+					
+                  <a href="{% url 'single-news' news.0.id %}" class="site-btn">Read More</a>
+					</div>
+{% endif %}
+               <div class="row">
+                  {% for item in news%}
+						<div class="col-md-6">
+							<div class="blog-post">
+								<img src="{{ item.image.url }}" alt="">
+								<div class="post-date">{{ item.time | date:'F d, Y' }}</div>
+								<h4>{{ item.titel }}</h4>
+							
+								<p>{{ item.Description|truncatechars:290|safe }}</p>
+								<a href="{% url 'single-news' item.id %}" class="read-more">Read More</a>
+							</div>
+						</div>
+                  {% endfor %}
+            </div>
+         </div>
+         
+            <div class="col-lg-4 sidebar">
+               <div class="sb-widget">
+                  
+						{% if options.about_image %}
+                  <a href="#" class="add">
+							<img src="{{ options.about_image.url }}" alt="">
+						</a>
+                  {% endif %}
+					</div>
+            </div>
+         </div>
+      </section>
+      
+{% endblock %}

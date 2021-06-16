@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Terms and Conditions {% endblock %}
+
+{% block body %}
+
+<div class="cntnr">
+    <div style="color: #fff;">
+    {% if options.term_and_condition %}
+    {{ options.term_and_condition | safe }}
+    {% else %}
+    <h2>Terms and Conditions</h2>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

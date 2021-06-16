@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ match.team_1 }} vs {{ match.team_2 }} {% endblock %}
+
+
+{% block body %}
+<style>
+    .match-detail-page {
+        margin-top : 76px;
+        background: black;
+        color: #fff;
+    }
+    .participant-one {
+        width : 50%;
+        float : left;
+    }
+
+    .participant-two {
+        width : 50%;
+        float : right;
+    }
+
+    .match-participant img{
+        width : 50px;
+    } 
+
+    .participant-detail {
+        text-align : center;
+    }
+
+    .participant-member {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px ;
+    }
+    .participant-two .participant-member  {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    
+    .match-bottom {
+        margin-top : 10px;
+    }
+
+    .middle_text {
+        position: absolute;
+        top: 108px;
+        left: 48%;
+        font-size: 34px;
+        font-weight: bolder;
+    }
+    
+
+</style>
+<div class="match-detail-page">
+<div class="row">
+    <div class="col-lg-12 col-md-4">
+    <article class="match_details">
+        <div class="entry-content">
+            <div class="match-top">
+
+                <div class="match-participant">
+                    <div class="participant-one">
+                        <div class="participant-detail">
+                            <div class="team-img">
+                                <img src="{{ match.team_1.banner.url }}">
+                            </div>
+                            <div class="team-name">
+                               <a href="{% url 'team' match.team_1.id %}"> {{ match.team_1 }}</a>
+                            </div>
+                        
+                    
+
+                        </div>
+                        <div class="participant-team">
+                            <h3 style="text-align:center">Participants</h3>
+                            {% for m in match.sort_team_A %}
+                            <div class="participant-member">
+                                <img src="https://overworld.qodeinteractive.com/wp-content/uploads/2019/10/team-img-1.png">
+                                <div class="name">
+                                    {{ m.member }}
+                                </div>
+                            </div> 
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="middle_text">VS</div>
+                    <div class="participant-two">
+                        <div  class="participant-detail">
+                            <div class="team-img">
+                                <img src="{{ match.team_2.banner.url }}">
+                            </div>
+                            <div class="team-name">
+                             <a href="{% url 'team' match.team_2.id %}">   {{match.team_2 }} </a>                            </div>
+                        
+                    
+
+                        </div>
+                        <div class="participant-team">
+                            <h3 style="text-align:center">Participants</h3>
+                            {% for m in match.sort_team_B %}
+                            <div class="participant-member">
+                                <div class="name">
+                                    {{ m.member }}
+                                </div>
+                                <img src="https://overworld.qodeinteractive.com/wp-content/uploads/2019/10/team-img-1.png">
+                            </div> 
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="match-bottom">
+                <div style="justify-content: space-around;" class="team-info">
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Match Time
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                        {{ match.time }}
+                        {} 
+                        {% if match.cancel_request_1 and member.team == match.team_2 %}
+                            <a href="{% url 'acceptcancel' match.id %}"><button>Accept Cancel</button></a>
+
+                        {% endif %}
+                        {% if match.cancel_request_2 or  member.team == match.team_1 %}
+                            <a href="{% url 'acceptcancel' match.id %}"><button>Accept Cancel</button></a>
+                        {% endif %}
+
+                        <!-- {% if match.cancel_request_1 and member.team == match.team_1 %}
+                            <a href="{% url 'cancelreq' match.id %}"><button>Cancel Request</button></a>
+                        {% endif %}
+                        {% if match.cancel_request_2 and member.team == match.team_2 %}
+                            <a href="{% url 'cancelreq' match.id %}"><button>Cancel Request</button></a>
+                        {% endif %} -->
+                        {% if not match.cancel_request_1 and not match.cancel_request_2 %}
+                            <a href="{% url 'cancelreq' match.id %}"><button>Cancel Request</button></a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+                <div style="justify-content: space-around;" class="team-info">
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Match Status {% for m in match.map_matches.all %}
+                                        {{ m.map_name }}
+                                        {% endfor %}
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                        {% if match.result %}
+                            Completed
+                        {% else %}
+                            In Progress 
+                        {% endif %}
+                    </div>
+                    
+                </div>
+                <div style="justify-content: space-around;" class="team-info">
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Game
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                        {{ match.match_ladder.game }}
+                    </div>
+                    
+                </div>
+                <div style="justify-content: space-around;" class="team-info">
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Ladder
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                        {{ match.match_ladder }}
+                    </div>
+                    
+                </div>
+                <div style="justify-content: space-around;" class="team-info">
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Platform
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                        {{ match.match_ladder.console }}
+                    </div>
+                    
+                </div>
+                <div style="justify-content: space-around;" class="team-info">
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Winner         
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                
+                        {% if match.result %}
+                    {{ match.winner }}
+                    {% else %}    
+                    TBD
+                    {% endif %}
+                    </div>
+                    
+                </div>
+                <div style="justify-content: space-around;" class="team-info">
+                    {% if not match.result %}
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Report Match 
+                    </div>
+                    <div style="width: 50%;text-align: center;" class="status">
+                        <a href="{% url 'result' match.id match.team_1 %}"><button style="display: unset;" class="btn-default">{{ match.team_1 }} Win</button></a>
+                        <a href="{% url 'result' match.id match.team_2 %}" ><button style="display: unset;" class="btn-default">{{ match.team_2 }} Win</button></a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div style="justify-content: space-around;" class="team-info">
+                   
+                    {% if report.is_dispute %}
+                    <div style="width: 50%;text-align: center;" class="name">
+                        Please Enter Dispute as Both Team Claims To Be Winner 
+                    </div>
+                    <div style="width: 50%;  text-align: center;" class="status">
+                        <a href="#"   data-toggle="modal" data-target="#fileDispute" >
+                           <button style="display: unset;" class="btn-default" > File Dispute  </button>   </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+    </article>
+    </div>
+
+    <!--  Modal For Dispute -->
+    {% if match.result %}
+    <div class="modal fade" id="fileDispute" tabindex="-1" role="modal" aria-labelledby="fileDispute" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title text-center" id="loginModalTitle" >File Dispute</h5>
+                 <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                 </button>
+                </div>
+                <div style="width: 100%; text-align: center; font-weight: bold; color: crimson;"> 
+                As Both Team Claims to winner we need proof to verify
+            </div>
+
+                <div style="color:yellowgreen" class="modal-body">
+                 <form method='post' action="{% url 'dispute' report.id %}">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="description"> Provide any important information regarding game</label>
+                        <textarea required row="4" class="form-control" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="proof"> If any video or image proof</label>
+                       <input class="form-control" type="text" name="proof">
+                       
+                    </div>
+                    {% for i in request.user.member.all %}
+                    {% if match.team_1 == i.team or match.team_2 == i.team %}
+                            <input type="hidden" value="{{ i.team.id }}" name="team-id" >
+                       {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-block">Post</button>
+     
+                 </form>
+              </div>
+              <div class="modal-footer">
+                 <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+              </div>
+           </div>
+        </div>
+     </div>
+{% endif %}
+
+</div>
+</div>
+
+{% endblock %}

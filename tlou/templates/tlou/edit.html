@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Team {% endblock %}
+
+{% block body %}
+<style>
+    .edit-team-page {
+        padding-top: 100px;
+        background: #101c2a;
+    }
+    .team-edit-forms {
+        width : 100%;
+    }
+    .edit-side-1 {
+        color : #fff;
+        background: #101c2a;
+        width: 50%;
+        float : left;
+        padding-bottom : 122px;
+    }
+    .edit-side-2 {
+        color : #fff;
+        background: #101c2a;
+        width: 50%;
+        float: right;   
+    }
+    .edit-heading {
+        background: #d33e;
+        margin: 2px 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .edit-heading h2 {
+        color: #fff;
+    }
+    .btn-nob {
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    .form-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .head-btn {
+        text-align: center;
+    }
+    @media  screen and (max-width:768px) {
+        .edit-side-1 {
+            width: 100%;
+        }
+        .edit-side-2 {
+            width: 100%;
+        }
+    }
+
+</style>
+
+<div class="edit-team-page">
+    <div class="heading-edit">
+        <h1>{{ team }}</h1>
+    </div>
+    <div class="head-btn">
+        <a href="{% url 'ladder' team.ladder.id %}"><button class="btn-nob btn-info">View Ladder</button></a>
+        <a href="{% url 'team' team.id %}"><button class="btn-nob btn-info">View Team</button></a>
+    </div>
+    <div class="team-edit-forms">
+        <div class="edit-side-1">
+            <div class="roster-list">
+                <div class="edit-heading">
+                <h2>
+                    Roster
+                </h2>
+            </div>
+            <div class="team-info">
+                <div class="name">
+                    Name
+                </div>
+                <div class="role">
+                    Role
+                </div>
+                <div class="action">
+                    Action
+                </div>
+            </div>
+            {% for member in members %}
+            <div class="team-info">
+                <div style="width:10%;" class="name">
+                    {{ member.member }}
+                </div>
+                <div class="role">
+                    {{ member.rank }}
+                </div>
+                {% if not member.is_leader %}
+                <div class="action">
+                    <a href="{% url 'kick' member.id %}"><button class="btn-danger btn-nob">
+                        Kick
+                    </button></a>
+                </div>
+                {% else %}
+                <div style="visibility: hidden;" class="action">
+                    <a href=""><button class="btn-danger btn-nob">
+                        Kick
+                    </button></a>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="img-change">
+            <div class="edit-heading">
+            <h2>
+                Change Team Banner and Profile Image
+            </h2>
+            </div>
+            <form action="{% url 'changeImg' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="input-container wdt-90">
+                <label for="formFileSm" class="form-label">Change Profile</label>
+                <input class="form-control form-control-sm" name="img-profile" id="formFileSm" type="file" />
+            </div>
+            <div class="input-container wdt-90">
+                <label for="formFileSm" class="form-label">Change Banner </label>
+                <input class="form-control form-control-sm" name="img-banner" id="formFileSm" type="file" />
+            </div>
+            <input type="hidden" name="team-id" value="{{ team.id }}">
+            </div>
+            <div class="form-btn">
+                <button type="submit" class="btn-primary btn-nob">Change</button>
+          </div>
+        </form>
+        </div>
+        <div class="edit-side-2">
+            <div class="invite-player">
+                <div class="edit-heading">
+                    <h2>
+                        Invite Player
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="input-container wdt-90">
+                        <form action="{% url 'invite' %}" method="POST">
+                            {% csrf_token %}
+                            
+                        <label for="invite">Search for User</label>
+                        <input class="form-control" type="text" name="member1">
+                        
+                      <input type="hidden" name="teamname" value="{{ team.name }}">
+                    </div>
+                      <div class="form-btn">
+                      <button type="submit" class="btn-primary btn-nob">Invite Player</button>
+                </div>
+                    </form>
+                </div>
+            </div>
+            <div class="update-player">
+                <div class="edit-heading">
+                    <h2>
+                        Update Player Rank
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'promote' %}" method="Post">
+                        {% csrf_token %}
+                        <div class="input-container wdt-90">
+                        <label for="">Select Member</label>
+                        <select class="form-control" id="member{{forloop.counter}}" name="member1"
+                        placeholder="Select-User">
+                        <option value="" selected>Select From Users</option>
+                        {% for item in members %}
+                            {% if not item.is_leader %}
+                                <option value="{{ item.id }}">{{ item.member }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                    <div class="input-container wdt-90">
+                    <label for="">Selec Rank</label>
+                    <select class="form-control" name="rank">
+                        <option value="Member">Member</option>
+                        <option value="Captin">Captain</option>
+                    </select>
+                </div>
+                <div class="form-btn">
+            <button type="submit" class="btn-primary btn-nob"> Update </button>
+        </div>
+        </form>
+            
+                </div>
+            </div>
+            <div class="transfer-player">
+                <div class="edit-heading">
+                    <h2>
+                        Transfer Leader
+                    </h2>
+                </div>
+                <div class="modal-body">
+                <form action="{% url 'transferleader' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-container">
+        
+                    <select class="form-control" id="member{{forloop.counter}}" name="member1"
+                        placeholder="Select-User">
+                        <option value="" selected>Select From Users</option>
+                        {% for item in members %}
+                            {% if not item.is_leader %}
+                                <option value="{{ item.id }}">{{ item.member }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="hidden" name="leader" value="{{ leader.id }}">
+                <div class="form-btn">
+                <button class="btn-primary btn-nob" >Transfer Leadership</button>
+            </div>
+            </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

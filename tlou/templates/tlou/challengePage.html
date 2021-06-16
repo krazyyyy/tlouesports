@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+
+</style>
+
+<div class="cntnr">
+    <div class="challengeInfo">
+        <div class="Btns">
+          {% if member.has_access %}
+          {% if match.report_one_team.first == None and member.team == match.team_1 or match.report_two_team.first == None and member.team == match.team_2 %}
+          {% if match.current_stats == "In-Progress" %}
+              <button  data-toggle="modal" data-target="#reportModal" class="repMatchBtn"> <img src="{% static 'images/skull.svg' %}" alt=""> Report Match</button>
+            
+              {% if match.cancel_request_1 or match.cancel_request_2 %}
+            {% if match.cancel_request_1  %}
+                {% if match.team_2 == member.team %}
+                    <button style="background-color: #48bb7a;" class="cancelReqBtn"><img src="{% static 'images/skull.svg' %}" alt=""><a style="color:white" href="{% url 'acceptcancel' match.id %}"> Accept Request </a></button>
+                {% endif %}
+            {% endif %}
+            {% if match.cancel_request_2  %}
+                {% if match.team_1 == member.team %}
+                    <button style="background: #48bb7a;" class="cancelReqBtn"><img src="{% static 'images/skull.svg' %}" alt=""><a style="color:white" href="{% url 'acceptcancel' match.id %}"> Accept Request </a></button>
+                {% endif %}
+                {% endif %}
+                {% else %}
+                    <button class="cancelReqBtn"><img src="{% static 'images/skull.svg' %}" alt=""><a style="color:white" href="{% url 'cancelreq' match.id %}"> Cancel Request </a></button>
+                {% endif %}
+                {% if match.cancel_request_1 and member.team == match.team_1%}
+                <button style="background: red;" class="cancelReqBtn"><img src="{% static 'images/skull.svg' %}" alt=""><a style="color:white" href="{% url 'cancelreq' match.id member.team.id %}"> Abort Request </a></button>
+                {% endif %}
+                {% endif %}
+                {% if match.cancel_request_2 and member.team == match.team_2 %}
+                    <button style="background: red;" class="cancelReqBtn"><img src="{% static 'images/skull.svg' %}" alt=""><a style="color:white" href="{% url 'abort' match.id member.team.id %}"> Abort Request </a></button>
+                {% endif %}
+                {% else %}
+                <buttonclass="rulesBtn"> <img src="{% static 'images/info.svg' %}" alt=""> Match Reported</button>
+        
+                {% endif %}
+                {% endif %}
+            </div>
+        
+            <ul>
+                <li class="listHeader">Challenge Info</li>
+                <li class="listHighlighted">Match Id <span>#{{ match.id }}</span></li>
+                <li>Best Of <span>{{ match.match_type }}</span></li>
+                <li class="listHighlighted">Formal  <span>{{ match.players}}</span></li>
+                <li>Start Time <span>{{ match.convert_time }}</span></li>
+                <li class="listHighlighted">No-Show-Time <span>{{ match.no_show_time }}</span></li>
+                <li>Game <span>{{ match.match_ladder.game }}</span></li>
+                <li class="listHighlighted">Region <span>{{ match.match_ladder.region}}</span></li>
+                <li>Game Mode <span>Supply Raid</span></li>
+                <li class="listHighlighted">Status 
+                    
+                    <span style="color: greenyellow;" class="higlightedRed">{{ match.current_stats }}</span></li>
+                    
+                    
+                    <li>Plat Form <span>{{ match.match_ladder.console }}</span></li>
+                    {% if match.result %}
+                        <li class="listHighlighted">Winner <span>{{ match.winner }}</span></li>
+                    {% endif %}
+                    </ul>
+
+        <button data-toggle="modal" data-target="#rulesModal" class="rulesBtn"> <img src="{% static 'images/info.svg' %}" alt=""> Rules</button>
+            {% if member.has_access %}
+   
+            {% if match.disputed %}
+            
+            <button  class="raiseBtn"><img src="{% static 'images/alert.svg' %}" alt=""> <a href="{% url 'raise_dispute' match.id member.team.id %}"> Post Proof </a></button>
+            {% else %}
+            <button class="raiseBtn"><img src="{% static 'images/alert.svg' %}" alt=""> <a href="{% url 'raise' match.id %}"> Raise A Dispute</a></button>
+            {% endif %}
+            {% endif %}
+        </div>
+    <div class="match">
+       <div class="matchDivFirst">
+           <div class="matchPlayer">
+               <div class="matchPlayerImg">
+                       <div style="background-image: url('{{ match.team_1.image.url}}');" class="mI"></div>
+                       <span class="mISpan"></span>
+               </div>
+               <h2 style="color: #fff;">{{ match.team_1 }}</h2>
+               <span class="teamSince">Team Since: {{ match.team_1.founded_at }}</span>
+           </div>
+           <div class="vsImg">
+               <img src="{% static 'images/vs.png'%}" alt="">
+           </div>
+           <div class="matchPlayer">
+            <div class="matchPlayerImg">
+                {% if match.team_2 == None %}
+                <div class="mI"></div>
+                {% else %}
+                <div style="background-image: url('{{ match.team_2.image.url}}');" class="mI"></div>
+                {% endif %}
+                <span class="mISpan"></span>
+            </div>   
+            <h2 style="color: #fff;">{{ match.team_2 }}</h2>
+               <span class="teamSince">Team Since: {{ match.team_2.founded_at }}</span>
+           </div>
+       </div>
+       <div class="matchDiv">
+           {% for i in match.map_matches.all %}
+          <div class="map map1">
+              <img src="{{ i.img_url }}" alt="" >
+              <span>MAP: {{ forloop.counter }} </span>
+              <span>Supply Raid - {{ i.map_name}}</span>
+              <span>Host: {{i.host}}</span>
+          </div>
+          {% endfor %}
+          
+       </div>
+    </div>
+    <div style="visibility: hidden;" class="chat">
+        <div class="chatHeader">
+            <span>Chat</span>
+        </div>
+        <div class="chatSection">
+
+        </div>
+        <div class="chatSender">
+            <input type="text" placeholder="Type a message here...">
+        </div>
+    </div>
+</div>
+<div class="rosters">
+    <div class="playerOneRoster">
+      <h5 style="color:#fff"> {{ match.team_1 }}</h5>
+      <ul>
+          
+          <li>Username <span>PSN</span></li>
+          {% for m in match.sort_team_A %}
+          <li>{{ m.member }}<span>{{ m.member.userdtl.psn}}</span></li>
+          {% endfor %}
+      </ul>
+    </div>
+    <div class="playerTwoRoster">
+      <h5 style="color: #fff;">{{ match.team_2 }}</h5>
+      <ul>
+          <li>Username<span>PSN</span></li>
+          {% for m in match.sort_team_B %}
+          <li>{{ m.member }}<span>{{ m.member.userdtl.psn}}</span></li>
+          {% endfor %}
+      </ul>
+    </div>
+    
+</div>
+{% if member.has_access%}
+<!--  Modal For Dispute -->
+<div class="modal fade" id="fileDispute" tabindex="-1" role="modal" aria-labelledby="fileDispute" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="loginModalTitle" >File Dispute</h5>
+        <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div style="width: 100%; text-align: center; font-weight: bold; color: crimson;"> 
+      As Both Team Claims to winner we need proof to 
+    </div>
+    
+    <div style="color:yellowgreen" class="modal-body">
+     
+             <form method='post' action="{% url 'raise_dispute' match.id member.team.id %}">
+              {% csrf_token %}
+                
+                
+                <div class="form-group">
+                    <label for="proof"> Proof-1</label>
+                   <input class="form-control" type="text" name="proof-1">
+                   
+                </div>
+                <div class="form-group">
+                    <label for="proof"> Proof-2</label>
+                   <input class="form-control" type="text" name="proof-2">
+                   
+                </div>
+                <div class="form-group">
+                    <label for="proof"> Proof-3</label>
+                   <input class="form-control" type="text" name="proof-3">
+                   
+                </div>
+                <div class="form-group">
+                    <label for="proof"> Message</label>
+                    <textarea required class="form-control" name="msg" rows="6"></textarea>
+                   
+                </div>
+               
+                    <button type="submit" class="btn btn-primary btn-block">Post</button>
+ 
+             </form>
+          </div>
+          <div class="modal-footer">
+             <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+          </div>
+       </div>
+    </div>
+ </div>
+{% endif %}
+{% if member.has_access %}
+<div class="modal fade" id="reportModal" tabindex="-1" role="modal" aria-labelledby="reportModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title text-center" id="loginModalTitle" >Report</h5>
+                 <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                 </button>
+                </div>
+                
+                <div class="form-group">
+                    <div style="text-align: center;" class="status">
+                        <a href="{% url 'report_match' match.id member.team.id True %}"><button style="display: unset;" class="btn-default"> Win</button></a>
+                        <a href="{% url 'report_match' match.id member.team.id False %}" ><button style="display: unset;" class="btn-default"> Lose</button></a>
+                    </div>
+                </div>
+               
+              <div class="modal-footer">
+                 <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+              </div>
+           </div>
+        </div>
+     </div>
+<div class="modal fade" id="rulesModal" tabindex="-1" role="modal" aria-labelledby="rulesModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title text-center" id="loginModalTitle" >Rules</h5>
+                 <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                 </button>
+                </div>
+                
+               <div>
+                   {{ match.match_ladder.rules }}
+               </div>
+               
+              <div class="modal-footer">
+                 <h5 class="text-center"><a href="{% url 'contact' %}">Contact Us</a> for any support</h5>
+              </div>
+           </div>
+        </div>
+     </div>
+{% endif %}
+
+<script>
+  function Confirm() {
+  confirm("Are You Sure!");
+}
+</script>
+
+{% endblock %}

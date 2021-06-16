@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %} Accept {% endblock %}
+
+{% block body %}
+<style>
+    .accept-page {
+        margin-top : 74px;
+        background: #13212e;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .table-accept div {
+        width : 50%;
+    } 
+
+    @media screen and (max-width:768px){
+        .table-accept {
+            margin: unset!important;
+        }
+    }
+
+
+
+    .select-team-player .member {
+        display: inline-block;
+        text-align: center;
+    }
+    /* .select-team-player {
+        justify-content: space-evenly;
+        text-align: center;
+    } */
+
+</style>
+    <div class="accept-page">
+        <div class="accept-page-table">
+            <div style="margin: 5px 130px;"s class="accept-heading">
+                <h2 class="white_text">Match Information</h2>
+            </div>
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                ID           
+            </div>
+            <div class="option">
+                {{ match.id }}
+            </div>
+        </div>
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                Ladder           
+            </div>
+            <div class="option">
+                {{ team.ladder }}
+            </div>
+            </div>
+
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                Platform           
+            </div>
+            <div class="option">
+                {{ team.ladder.console }}
+            </div>
+        </div>
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                Match Time           
+            </div>
+            <div class="option">
+                {{ match.convert_time }}
+            </div>
+        </div>
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                Game           
+            </div>
+            <div class="option">
+                {{ team.ladder.game }}
+            </div>
+        </div>
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                Format           
+            </div>
+            <div class="option">
+                {{ match.players }}
+            </div>
+        </div>
+        <div style="margin: 5px 130px; justify-content: space-around;" class="table-accept team-info">
+            <div class="name">
+                Type           
+            </div>
+            <div class="option">
+                {{ match.match_type }}
+            </div>
+        </div>
+    </div>
+    <div style="margin: 5px 130px;
+    text-align: center;" class="select-team-player">
+        <div>
+            <h2>Members</h2>
+        </div>
+        <form action="{% url 'acceptChallenge' match.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="player-limit" value="{{match.players}}">
+            <input type="hidden" name="player-count" value="{{ members.count }}">
+        <div class="member-list">
+        {% for member in members %}
+        <div  class="member">
+                <img style="width:55px; margin: 0 16px; height: 55px; " src="{{ member.member.userdtl.img_user.url }}" alt="">
+                <p style="font-size: 12px;" class="white_text">{{ member.member }}</p>
+                <input type="checkbox" value="{{member.id}}" name="member-{{forloop.counter}}">
+        </div>    
+        {% endfor %}
+       
+        <button style="float: right;" class="btn btn-primary">Accept</button>
+   
+    </div>
+</form>
+    </div>
+
+    </div>
+{% endblock %}

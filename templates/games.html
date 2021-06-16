@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Join Game{% endblock %}
+
+{% block body %}
+         <!-- <div class="inner-page-banner" style="background-image: url('/{{image.0.image}}');"> -->
+         {% if options.game_banner %}
+            <div class="inner-page-banner" style="background-image: url('{{ options.game_banner.url }}');">
+         {% else %}
+               <div class="inner-page-banner" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_6F0dQJ8EXxwVoRgVpGkpY0uo1yc0ZrQ5JA&usqp=CAU');">
+            {% endif %}
+                  <div class="container">
+            </div>
+         </div>
+         <div class="inner-information-text">
+            <div class="container">
+               <h3>Our Games</h3>
+               <ul class="breadcrumb">
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                     
+                  <li class="active">Our Games</li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <section style="    background: #13212e; margin: 0;" id="contant" class="contant main-heading team">
+         <div class="row">
+            <div class="container">
+
+               {% for game in games %}
+               <div class="col-md-3 column">
+                  <div class="card">
+                     <!-- <img class="img-responsive" src="{{game.image}}" style="width:100%"> -->
+                     <img class="img-responsive" src="{% static 'image/Games/img-03_003.jpg' %}" style="width:100%">
+                     <div class="">
+                        <h4>{{game.Name}}</h4>
+                        <p>
+                        <!-- <div class="center"><a href="ladders/{{game.id}}"><button class="button">Join This Game</button></a></div> -->
+                        <div class="center"><a href="ladders/{{game.id}}"><button class="button">Join This Game</button></a></div>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+      </section>
+
+      {% endblock %}

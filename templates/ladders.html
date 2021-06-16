@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Ladders {% endblock %}
+
+{% block body %}
+      {% if options.second_ladder_banner %}
+         <div class="inner-page-banner" style="background-image: url('{{ options.second_ladder_banner.url }}');">
+      {% else%}
+            <div class="inner-page-banner" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/738/436/859/naughty-dog-the-last-of-us-part-ii-playstation-ellie-ashley-johnson-hd-wallpaper-preview.jpg');">
+         {% endif %}
+               <div class="container">
+            </div>
+         </div>
+         <div class="inner-information-text">
+            <div class="container">
+               <h3>{{gname}}</h3>
+               <ul class="breadcrumb">
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="{% url 'games' %}">Games</a></li>
+                  <li class="active">{{gname}}</li>
+               </ul>
+            </div>
+         </div>
+      </section>
+
+      <section style="padding-top:40px; height: 100vh;" class="ladder-home">
+         <ul class="ladder-list">
+            {% for item in ladders %}
+
+            {% if item.image %}
+               <li class="ladder-box" style="background-image: url('{{ item.image.url }}')">
+            {% else %}
+               <li class="ladder-box" style="background-image: url('')">
+            {% endif %} 
+               <div class="ladder-body">
+                  <a href="#" class="ladder-name">{{ item.Name }}</a>
+                  <span class="date">{{ item.end_date | date:'F d, Y' }}</span>
+                  <h3><strong class="white_text">{{ item.game }}</strong></h3>
+               </div>
+               <style>
+                  .col-item h4, .col-item h2 {
+                     color : #fff;
+                  }
+               </style>
+               <div class="ladder-footer">
+                  <div style="width: 100%; justify-content: space-around;" class="col">
+                     <div class="col-item">
+                        <h4>Teams</h4>
+                        <h2> {{ item.teams.count }}</h2>
+                     </div>
+                     <div class="col-item">
+                        <h4>Matches</h4>
+                        <h2>{{ item.matches_played }}</h2>
+                     </div>
+                     <div class="col-item">
+                        <h4>Season</h4>
+                        <h2>{{ item.season }}</h2>
+                     </div>
+                  </div>
+                  <div style="z-index: 999;" class="col align-right">
+                     <a href="{% url 'ladder' item.id %}" style="background:#1c72ce; color: #fff;" class="btn-default">View Ladder</a>
+                  </div>
+
+               </div>
+            </li>
+            {% endfor %}
+         </ul>
+      </section>
+
+      {% endblock %}

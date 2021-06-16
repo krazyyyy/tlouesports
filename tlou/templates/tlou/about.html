@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} About Us {% endblock %}
+
+{% block body %}
+
+{% if options.about_background_banner %}
+<div class="inner-page-banner" style="background-image: url('{{ options.about_background_banner.url }}');">
+{% else%}
+   <div class="inner-page-banner" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/738/436/859/naughty-dog-the-last-of-us-part-ii-playstation-ellie-ashley-johnson-hd-wallpaper-preview.jpg');">
+{% endif %}    <div class="container">
+    </div>
+ </div>
+ <div class="inner-information-text">
+     <div class="container">
+        
+        <ul class="breadcrumb">
+           <li><a href="{% url 'index' %}">Home</a></li>
+              
+           <li class="active">About Us</li>
+        </ul>
+     </div>
+  </div>
+</section>
+
+<section id="contant" class="contant" style="background: #1c2739; color:#fff; padding-bottom:0;margin-bottom:-1px;position:relative;z-index:1;">
+ <div class="about-heading">
+    <h2>About Us</h2>
+ </div>
+   <div class="aboutus">
+    <div class="container">
+       <div style="padding-bottom: 30px;" class="row">
+          <div class="col-md-12 col-sm-12">
+             <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="full">
+                   {{ options.about_info | safe }}
+                   </div>
+             </div>
+             <div class="col-md-5 col-sm-5 col-xs-12">
+                 {% if options.about_image %}
+                <img class="img-responsive" src="{{ options.about_image.url }}" alt="#" />
+                {% endif %}
+             </div>
+          </div>
+       </div>
+       <div style="padding-bottom: 30px;" class="row">
+          <div class="col-md-12 col-sm-12">
+             <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="full">
+                   {{ options.about_info_2 | safe }}
+                   </div>
+             </div>
+             
+          </div>
+       </div>
+    </div>
+ </div>
+ 
+</section>
+
+{% endblock %}

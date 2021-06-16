@@ -1,0 +1,62 @@
+{% load static %}
+<footer id="footer" class="footer">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-4">
+             <div class="full">
+                <div class="footer-widget">
+                   <div class="footer-logo">
+                      <a href="/"><img src="{% static 'images/logo.png' %}" alt=""></a>
+                   </div>
+                   <p>Register for an Account, Compete in your favourite game titles, Win money and much more !</p>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-2">
+             <div class="full">
+                <div class="footer-widget">
+                   <h3>Menu</h3>
+                   <ul class="footer-menu">
+                      <li><a href="{% url 'about' %}">About Us</a></li>
+                      <li><a href="#">Leaderboards</a></li>
+                      <li><a href="{% url 'ladders' 1 %}">Ladder</a></li>
+                      <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+          <div class="col-md-3">
+             <div class="full">
+                <div class="footer-widget">
+                   <h3>Contact us</h3>
+                   <ul class="address-list">
+                      <li><i style="font-size:20px;top:5px;" class="fa fa-envelope"></i>{{ options.contact_email }}</li>
+                   </ul>
+                   <ul class="social-icons style-4 pull-left">
+                     {% for item in options.social_media.all %}
+                     <li><a class="facebook" href="{{item.link}}"><i class="fab {{item.faicon}}"></i></a></li>
+                     {% endfor %}
+                  </ul>
+                </div>
+             </div>
+          </div>
+       
+          <div class="col-md-3">
+             <div class="full">
+                <div class="footer-widget">
+                   <h3>Terms & Conditions</h3>
+                   <ul>
+                      <li><a style="color: #fff;" href="{% url 'terms' %}">Terms of Service</a></li>
+                      <li><a style="color: #fff;" href="{% url 'privacy' %}">Privacy Policy</a></li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="footer-bottom">
+       <div class="container">
+          <p>Copyright © 2021 TLOUeSports. All rights reserved.</p>
+       </div>
+    </div>
+ </footer>

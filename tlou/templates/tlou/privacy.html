@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Terms and Conditions {% endblock %}
+
+{% block body %}
+
+<div class="cntnr">
+    {% if options.privacy_and_policy %}
+    {{ options.privacy_and_policy | safe }}
+    {% else %}
+    <h2>Privacy and Policy</h2>
+    {% endif %}
+    
+</div>
+{% endblock %}

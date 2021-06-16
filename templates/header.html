@@ -1,0 +1,61 @@
+{% load static %}
+<header>
+    {% for message in messages %}
+       <script>
+          swal("Tlouesports.com", "{{message}}", "{{message.tags}}");
+       </script>
+    {% endfor %}
+    <div class="header-bottom">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="full">
+                <div class="main-menu-section">
+                   <div class="menu container navbar-header" style="background-color: black; color: white;">
+                      <nav class="navbar navbar-inverse" style="float: right; width: 100%;">
+                         <div style="float: left; margin-top: 5px; margin-bottom: 5px; width: 200px;" class="navbar navbar-inverse">
+                            <a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" height="60px" width="220px" alt=""></a>
+                         </div>
+                         <div class="navbar-header" style="float: right; width: 50px;">
+                            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            </button>
+                         </div>
+                         <div class="collapse navbar-collapse js-navbar-collapse" style="float: right;">
+                            <ul class="nav navbar-nav">
+                               <li id="home-down"><a href="{% url 'index' %}">Home</a>
+                               
+                            </li>
+                               <li><a href="{% url 'about' %}">About Us</a></li>
+                               <li><a href="{% url 'ladders' 1 %}">Ladders</a></li>
+                               
+                               <li><a href="{% url 'contact' %}">Support & Contact</a></li>
+                               {% if request.user.is_authenticated %}
+                               <li class="login-modal">
+                                  <a class="login" href="/profile/{{request.user.username}}"><i class="fa fa-user"></i>  Profile</a>
+                               </li>   
+                               <li class="login-modal">
+                                  <a href="/logout" class="login dropdown-item">Logout</a>
+                               </li>
+                               {% else %}
+                               <li class="login-modal">
+                                  <a class="login"  data-toggle="modal" data-target="#loginModal"><i class="fa fa-user" style="padding-right: 5px;"></i>  Login</a>
+                               </li>
+                               <li>
+                                  <a  data-toggle="modal" data-target="#signupModal"><i class="fas fa-sign-in-alt" style="padding-right: 5px;"></i>  Register</a> 
+                               </li>
+                               {% endif %}
+                            </ul>
+                         </div>
+                         <!-- /.nav-collapse -->
+                      </nav>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+</header>

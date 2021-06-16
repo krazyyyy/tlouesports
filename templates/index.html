@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https:////cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
+<script>  
+$(".carousel").swipe({
+
+      swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+
+      if (direction == 'left') $(this).carousel('next');
+      if (direction == 'right') $(this).carousel('prev');
+
+      },
+      allowPageScroll:"vertical"
+
+});
+</script>
+
+
+<div class="full-slider">
+   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner"  style="height:488px;" role="listbox">
+         <!-- First slide -->
+         {% for slide in slider %}
+         {% if forloop.counter == 1 %}
+         <div class="item active deepskyblue" data-ride="carousel" data-interval="5000" style="background-image: url('{{ slide.image.url }}');">
+            {% else %}
+            <div class="item deepskyblue" data-ride="carousel" data-interval="5000" style="background-image: url('{{ slide.image.url }}');">
+               {% endif %}
+               <div class="carousel-caption">
+               <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
+               <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                  <div class="slider-contant" data-animation="animated fadeInRight">
+                     <br>
+                     <br><h3>{{slide.Heading}}<br><span class="color-yellow">{{slide.SubHeading}}</span></h3>
+                     
+                     <a href="{{slide.link}}"><button class="btn btn-primary btn-lg">Read More</button></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% empty %}
+         <div class="item active deepskyblue" data-ride="carousel" data-interval="5000" style="background-image: url('https://images.ctfassets.net/hrltx12pl8hq/5GaLeZJlLyOiQC4gOA0qUM/a0398c237e9744ade8b072f99349e07a/shutterstock_152461202_thumb.jpg?fit=fill&w=480&h=270');">
+               <div class="carousel-caption">
+               <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
+               <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                  <div class="slider-contant" data-animation="animated fadeInRight">
+                     <br>
+                     <br><h3>Test Slides<br><span class="color-yellow">Add Slides From Pannel</span></h3>
+                     
+                     <a href=""><button class="btn btn-primary btn-lg">Read More</button></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+
+      </div>
+      <!-- First slide -->
+         
+      
+         <!-- /.item -->
+      </div>
+      {% if options.winner_bool %}
+      <div class="news" style="background:none;">
+         <div class="container" >
+            <div class="heading-slider">
+              
+               <p class="headline"><i class="fa fa-star" aria-hidden="true"></i> Latest winners :</p>
+               <h1>
+               <a href="" class="typewrite" data-period="2000" data-type='[{{options.winners}}]'>
+               <span class="wrap"></span>
+               </a>
+               </h1>	   
+               <span class="wrap"></span>
+               </a>
+            </div>
+            </div>
+   </div>
+   {% endif %}
+   </div>
+         
+      
+         
+   
+            <!-- /.carousel -->
+         
+
+      <section class="news-home-heading">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <div class="main-heading sytle-2">
+                        <h2> News</h2>
+                        <p></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+
+      <section class="news-home">
+         <div class="container">
+            <div class="row">
+               <div class="news-grid">
+                  {% for item in news %}
+                  {% if item.image %}
+                  <article style="background-image: url('{{ item.image.url }}');">
+                  {% endif %}
+                     <div class="overlay">
+                        <h3> <a style="color:#fff" href="{% url 'single-news' item.id %}">
+                           {{ item.title }}
+                        </a>
+                     </h3>
+                        <div class="details">
+                           <span>{{ item.time | date:"F m, Y"}}</span>
+                        </div>
+                     </div>
+                  </article>
+                  {% endfor %}
+               </div>
+            </div>
+
+            <div style="float: right; padding: 10px 0;" class="section-footer">
+               <a href="{% url 'news' %}" class="btn-primary btn-default">Show All</a>
+            </div>
+         </div>
+
+
+      </section>   
+
+
+
+
+      <section class="matches-home-heading">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <div class="main-heading sytle-2">
+                        <h2 style="color: #fff;">Latest Matches</h2>
+                        <p style="color: #fff;">Our Latest Ladder Matches</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section class="match-home">
+      <div class="container">
+      <div class="row">
+         <div class="match-box-div">
+            <ul>
+            {% for match in matches %}
+            
+            <li class="match-box">
+               <div class="box-title">
+                  <span>
+                     {{ match.match_ladder.Name }}</span>
+                  <span class="date">
+                     {{ match.time }} <a
+                        href="{% url 'challenge' match.id %}">
+                        View match <i class="fas fa-play"></i>
+                     </a>
+                  </span>
+               </div>
+            
+               <div class="match-details">
+                  <div class="team-box">
+                     <a
+                        href="#">
+                        <img
+                           src="{{ match.team_1.image.url }}"
+                           alt="{{ match.team_1 }}">
+                     </a>
+
+                     <div class="team-details">
+                        <div class="team-name">
+                           <a href="{% url 'team' match.team_1.id %}"> <span>{{ match.team_1 }}</span></a>
+                        </div>
+
+                       
+                     </div>
+                  </div>
+
+                  <div class="col">
+                     <span class="result">
+                        {{ match.winner }} Wins </span>
+                  </div>
+
+                  <div class="team-box">
+                     <a
+                        href="#">
+                        {% if match.team_2 %}
+                        <img
+                           src="{{ match.team_2.image.url }}"
+                           alt="{{match.team_2}}">
+                           {% endif %}
+                     </a>
+
+                     <div>
+                        <div class="team-name">
+                           <a href=""><span>{{ match.team_2 }}</span></a>
+                        </div>
+
+                        
+                     </div>
+                  </div>
+               </div>
+
+               <span class="game-name">{{ ladder.Game }}</span>
+            </li>
+            {% endfor %}
+         </ul>
+         </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="video-home-heading">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="full">
+                  <div class="main-heading sytle-2">
+                     <h2>Videos</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   
+      <section class="videos-home">
+         <div class="container-fluid">
+            <div style="    display: flex;
+            justify-content: center;
+            flex-wrap: wrap;" class="row">
+            {% for video in options.video_list.all %}
+               <div class="col-md-4">
+                  <div class="full">
+                     <div class="match_vedio">
+                        <iframe width="100%" height="300" src="{{ video.video_link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <h3>{{ video.video_title }}</h3>
+                     </div>
+                  </div>
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+      </section>
+
+      <!-- <section class="ladder-home-heading">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <div class="main-heading sytle-2">
+                        <h2 style="color: #fff;">Ladders</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <section class="ladder-home">
+         <ul class="ladder-list">
+            {% for item in ladder %}
+
+            {% if item.image != None %}
+               <li class="ladder-box" style="background-image: url('{{ item.image.url }}')">
+            {% else %}
+               <li class="ladder-box" style="background-image: url('')">
+            {% endif %} 
+               <div class="ladder-body">
+                  <a href="#" class="ladder-name">{{ item.Name }}</a>
+                  <span class="date">1/1/2</span>
+                  <h3><strong class="white_text">{{ item.game }}</strong></h3>
+               </div>
+               <div class="ladder-footer">
+               
+                  <div style="z-index: 999;" class="col align-right">
+                     <a href="{% url 'ladder' item.id %}" style="background:#d8302f; color: #fff;" class="btn-default">View Ladder</a>
+                  </div>
+
+               </div>
+            </li>
+            {% endfor %}
+         </ul>
+      </section> -->
+
+      <section class="info-home-heading">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <div class="main-heading sytle-2">
+                        <h2 class="white_text">Socials</h2>
+                        <p></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+   <section  class="notice-home">
+      <div class="tweets">
+         
+         <a class="twitter-timeline" href="https://twitter.com/TLOUEsports?ref_src=twsrc%5Etfw">Tweets by TLOUEsports</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+      <div  class="notice-board">
+        
+         <div style="position: unset;" class="discord">
+            <iframe src="https://discord.com/widget?id=832364474769997895&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            
+         
+         </div>
+      </div>
+   </section>
+      
+ 
+      {% endblock %}

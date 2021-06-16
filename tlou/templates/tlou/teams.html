@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %} Teams {% endblock %}
+
+{% block body %}
+<div class="teams">
+    <div class="team-rating-column full-team-list">
+        <div class="team-inline">
+            <div class="team-info">
+                <div class="team-icon">
+                    
+                </div>
+                <div class="team-name">
+                <strong> Team </strong>
+                </div>
+                <div class="wins">
+                <strong>  Win-Lose </strong>
+                </div>
+                <div class="lose">
+                    <strong> Date Time </strong>   
+                </div>
+                <div class="elo">
+                <strong> Best of </strong>
+                </div>
+                <div class="streak">
+                <strong> Number of Players </strong>
+                </div>
+                
+                <div class="team-buttons">
+                                   </div>
+            </div>
+
+            {% for team in teams %}
+                
+                {% if team.public %}
+                
+                <div class="team-info">
+                    <div class="team-icon">
+                        <img style="    width: 40px;
+                        height: 40px;" src="https://image.freepik.com/free-vector/ninja-gaming-joystick-sport-logo-icon-illustration_7688-2117.jpg" alt="">
+                    </div>
+                    <div class="team-name">
+                        {{ team.team_1 }}
+                    </div>
+                    <div class="wins">
+                        {{ team.team_1.Win }}-{{ team.team_1.Lose }} 
+                    </div>
+                    <div class="lose">
+                        {{ team.time }}
+                    </div>
+                    <div class="elo">
+                        {{ team.match_type }}
+                    </div>
+                    <div class="streak">
+                        {{ team.players }}
+                    </div>
+                    
+                    <div class="team-buttons">
+                        <button><a href="{% url 'acceptChallenge' team.id %}">Challenge</a></button>
+                    </div>
+                </div>
+               {% endif%}
+            {% endfor %}
+        </div>
+    </div>
+    
+<div class="modal fade" id="challengeModal" tabindex="-1" role="dialog" aria-labelledby="challengeModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+        <div class="modal-header">
+            <h5 class="modal-title text-center" id="loginModalTitle" style="float: left;">Send a Match Proposal</h5>
+            <button type="button" style="float: right; color: red;" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body"> 
+            <form>
+               {% csrf_token %} 
+               <label for="teamname">Select Date Time</label>
+               <div class="form-group">
+                  <input type="datetime-local" id="time" required>
+               </div>
+               <div class="form-group">
+                  You are Challenging <strong id="challengename"></strong> as <strong>{{ team_1 }}</strong> for <strong> {{ teams_1.ladder }}</strong>
+               </div>
+   
+               <input type="hidden" name="ladder-id" value="{{ teams }}">
+               <input type="hidden" name="team-id" value="{{ team_1.id }}">
+               <input type="hidden" id="challengeid" name="team-id" value="">
+               
+           
+                  <button type="submit" class="btn btn-primary btn-block">Challenge</button>
+               
+            </form>
+         </div>
+       <div class="modal-footer">
+          <h5 class="text-center"><a href="/contact">Contact Us</a> for any support</h5>
+       </div>
+    </div>
+    </div>
+ </div>
+ 
+
+</div>    
+<script>
+    function getTeam(id, name) {
+        document.querySelector("#challengeid").value = id
+        document.querySelector("#challengename").innerHTML = ''
+        document.querySelector("#challengename").innerHTML = name
+    }
+</script>
+
+{% endblock %}
